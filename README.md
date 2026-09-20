@@ -6,7 +6,7 @@ A private, local novel-writing workspace. Everything feeds one structured model 
 
 100% local, no subscription, no account.
 
-[**Get beta access, free**](https://quillwork.agile-growth.net/beta) &nbsp;|&nbsp; [**Watch the demo video**](https://quillwork.agile-growth.net/demo) &nbsp;|&nbsp; [Website](https://quillwork.agile-growth.net/)
+[**Get beta access, free**](https://quillwork.agile-growth.net/beta) &nbsp;|&nbsp; [**Watch the demo video**](https://quillwork.agile-growth.net/demo) &nbsp;|&nbsp; [**User manual**](USER_MANUAL.md) &nbsp;|&nbsp; [Website](https://quillwork.agile-growth.net/)
 
 [![QuillWork's main chapter editor, showing a twelve-chapter manuscript in progress with the Scene beat and Check tools in the bottom toolbar](screenshots/hero_writing_view.png)](https://quillwork.agile-growth.net/demo)
 
@@ -22,6 +22,7 @@ A private, local novel-writing workspace. Everything feeds one structured model 
 - [System requirements](#system-requirements)
 - [Privacy statement](#privacy-statement)
 - [Frequently asked questions](#frequently-asked-questions)
+- [User manual](#user-manual)
 - [Beta application form](#beta-application-form)
 
 ---
@@ -201,6 +202,12 @@ QuillWork can check for a newer version and tell you what changed. You choose **
 
 **Where do I report a bug or ask a question?**
 Use the **Beta report** button in QuillWork's top bar, or email [marc@agile-growth.net](mailto:marc@agile-growth.net).
+
+---
+
+## User manual
+
+The complete guide to QuillWork, from setting up your AI model to the Story Analyst, importing, exporting, backups, updates and a full function reference: **[USER_MANUAL.md](USER_MANUAL.md)**. It is the same manual that is built into QuillWork and published at https://quillwork.agile-growth.net/docs.
 
 ---
 
