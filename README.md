@@ -150,7 +150,7 @@ Fiction with any mature content needs an uncensored or abliterated model: a stan
 
 ## Privacy statement
 
-**Your writing stays on your computer.** QuillWork does not receive, see or store your manuscript, your Bible or anything you write with it. It talks only to an AI model that you run yourself, through LM Studio or Ollama, at an address you set (normally this same computer). There is no cloud AI option in this beta. If you choose to point QuillWork at a model server on another computer, such as running the Fast model elsewhere, your text goes to that server, so use one you trust.
+**Your writing stays on your computer.** QuillWork does not receive, see or store your manuscript, your Bible or anything you write with it. It talks only to an AI model that you run yourself, through LM Studio or Ollama, at an address you set (normally this same computer). A cloud AI option is planned but is not built yet, so in this beta nothing goes to a hosted service. If you choose to point QuillWork at a model server on another computer, such as running the Fast model elsewhere, your text goes to that server, so use one you trust.
 
 **What QuillWork sends to QuillWork's server.** Two things, and nothing else:
 
@@ -174,7 +174,7 @@ No account and no subscription. Your licence key is valid for 28 days as a beta 
 Your key simply expires and QuillWork stops opening until you renew it. Sending a beta report before then is what unlocks a permanent free licence. It does not have to be long, just real feedback on what worked and what did not.
 
 **Does my writing ever leave my computer?**
-No. QuillWork talks only to an AI model you run yourself, through the OpenAI-compatible APIs of LM Studio or Ollama, on your own machine. There is no cloud provider option in this beta, so nothing you write is sent anywhere. See the [privacy statement](#privacy-statement) for the little that QuillWork does send to its own server.
+No. QuillWork talks only to an AI model you run yourself, through the OpenAI-compatible APIs of LM Studio or Ollama, on your own machine. A cloud AI option is planned but is not built yet, so in this beta nothing you write is sent to a hosted service. See the [privacy statement](#privacy-statement) for the little that QuillWork does send to its own server.
 
 **LM Studio or Ollama, which one do I need?**
 Either. QuillWork supports both, and defaults to the standard port for whichever you pick (1234 for LM Studio, 11434 for Ollama). Use whichever you already have. If you have neither, the optional Quick AI setup opens Ollama's official download page and then downloads a model that fits your hardware for you.
