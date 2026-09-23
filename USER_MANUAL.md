@@ -122,6 +122,8 @@ If your characters, locations, and plot notes live in an [Obsidian](https://obsi
 2. Click **Import**. QuillWork reads every `.md` note in the vault (skipping Obsidian's own `.obsidian` and `.trash` folders, and anything else tucked in a dot-folder), and extracts characters, locations, relationships, and plot threads from the combined text, the same four passes manuscript import uses.
 3. Everything found is **merged into the book you currently have open** — nothing is replaced, and nothing creates a new project. Review the results the normal way, in the Characters/Locations/Relationships/Plot threads panels.
 
+**If a chunk fails (most often a timeout on a large vault or a slow model):** everything else keeps going, and QuillWork tells you afterward exactly how many chunks failed, without losing them. A **Retry failed chunks** button appears - click it to try just those chunks again, without re-running the whole vault and losing every chunk that already succeeded. If a retried chunk fails again, it's still kept and can be retried as many times as you like.
+
 **What gets cleaned up automatically before extraction:** YAML frontmatter is read for a note title (if you use one) and then stripped out; fenced code blocks (including Dataview query blocks) are removed entirely rather than fed to the AI as if they were prose. `.canvas` files aren't read — only `.md` notes. `[[wikilinks]]` are marked **bold** and `![[embeds]]` *italic* rather than read as plain text — a linked mention is more likely to be a real character or location than incidental text, so keeping it visually distinct helps both you and the extraction itself.
 
 Since a vault can hold far more notes than a novel has chapters, take the note count QuillWork shows you seriously before starting — more notes means more AI calls and a longer wait, the same tradeoff as importing a very long manuscript.
@@ -310,6 +312,10 @@ Next to Fast model is **Vision model** (default "none configured"). Pick a model
 ### Max tokens (advanced)
 
 Under the model settings, **Writing model default** and **Fast model default** set how long a single reply may be. Leave both blank and QuillWork uses its own tuned limit for each feature. Raise them only if a reasoning model returns empty results: its "thinking" uses up the budget before it writes the actual answer. The Story Analyst sizes its own limit to the scene it is reading, and asks again with more room if a reply is still cut off, unless you have set a limit here, in which case it tells you the reply was cut off and leaves your limit alone. A step that goes to your main model because you have a Fast model set uses the Writing model default, and the message names that box. Each has an **Unlimited (let the server decide)** tick that sends no limit at all, so LM Studio's or Ollama's own setting applies.
+
+### AI request timeout (advanced)
+
+Under the model settings, **AI request timeout** sets how long QuillWork waits for a response with no new output before giving up on a request and calling it hung, shown in minutes (5 by default). This is not a limit on total generation time: a streamed reply resets the clock every time a new piece of it arrives, so a genuinely long answer never trips it just for taking a while. Raise this if a reasoning model's own "thinking" phase routinely goes quiet for longer than 5 minutes on your setup before any output appears at all, most often on a slower machine or a heavily-loaded one.
 
 ### Auto-extract Bible info as you write
 
@@ -568,6 +574,8 @@ This segmentation is also what makes [Dialogue Fingerprints](#61-characters) and
 
 The bible is what makes QuillWork's AI calls consistent — everything here gets automatically included as context in every AI writing, suggestion, and continuity call.
 
+Every editor window in this section (Characters, Locations, World elements, Relationships, Plot threads, and the Story Analyst's Facts, Knowledge, Beliefs and Foreshadowing windows) floats above the rest of the app instead of dimming and blocking it: the sidebar and editor behind it stay visible and usable, more than one of these windows can be open at once, and each is draggable by its own title bar and comes to the front when you click it. Drag its bottom-right corner to make it wider if a window feels cramped. None of this changes how you close one - only its own Cancel, Save or Delete button does that, never a click outside it.
+
 ### 6.1 Characters
 
 **Characters** in the sidebar. Click **Add character** or click an existing character pill to edit. Open a character and click **Delete** to remove it (you'll be asked to confirm; Version history is the only way back).
@@ -765,20 +773,23 @@ Click **Manage topics** to add a topic (choosing its parent, or "Top level"), re
 
 **Linking research to your manuscript.** A research item's own window has a **Linked to** section: link it to a chapter, a scene, a character, a location, a plot thread or a world entry, with your own note and a provenance tier on the link itself (independent of the item's own tier or any of its facts, since the same source can be a verified reference for one link and only your own interpretation for another). Each of those six also shows the connection back: a character, location, plot thread and world entry's own window has a **Related research** list; a chapter has a **Related research** button next to Scenes; a scene's own edit form shows it beneath its other fields. Clicking a related research item opens it directly. Creating a brand new character, location, plot thread, world entry or chapter while you have a research item open offers to link the two immediately, so the connection is recorded from whichever side you happen to be working in.
 
+**Asking a question against selected research.** Click **Ask a question** to turn the grid into a selection view: click cards to check them (or click the checkbox directly), then type your question and click **Ask**. QuillWork reads only the items you checked, numbers them, and asks your model for an answer grounded in exactly those items - it is told to answer using only what you gave it, not outside knowledge, and to say plainly when the selected items don't cover the question rather than guess. Every claim in the answer is meant to trace back to a real quote from one of the selected items; QuillWork checks each citation the model offers against that item's own text and drops any that don't actually appear there, so if nothing survives that check the answer shown is replaced outright with "The selected research doesn't contain an answer to that question" instead of ever showing you unsourced prose as though it were cited. Citations appear as chips below the answer, numbered to match the items, each showing its title and provenance tier; click one to open that item directly. Click **Done** to leave selection mode.
+
 Requires your project to be on QuillWork's current storage format (any project opened in a recent version already is). A project still on the older format shows a message asking you to reopen it first.
 
 ### 6.13 Bible updates
 
 The queue of things QuillWork noticed while extracting from your chapters that conflict with what's already in the bible — a character's description filled in one way, then a later chapter implying something different for the same field. Nothing here is applied automatically.
 
-Open it from the **Bible updates** entry in the sidebar (the count badge shows how many are waiting). Each entry shows the field in question, what the bible currently says, what the new chapter suggests instead, and the source quote it came from.
+Open it from the **Bible updates** entry in the sidebar (the count badge shows how many are waiting). Suggestions are grouped by entity and field ("Bob, Description"), with a count when more than one update is pending for the same slot, so every update to the same thing sits together instead of in whatever order extraction happened to queue them. Each entry within a group shows what the bible currently says, what the new chapter suggests instead, and the source quote it came from.
 
 Suggestions land here on their own after an import, after [Add written chapter](#87-add-written-chapter), and from background auto-extraction as you write. You can also run **Re-scan bible** in a chapter's header (see [5.1](#51-opening-and-creating-chapters)) to add anything it finds to this queue.
 
-- **Accept** replaces the current value with the new one.
+- **Accept** replaces the current value with the new one (or whatever you've edited the proposed text to).
 - **Keep what I have** dismisses the suggestion and leaves the bible untouched. QuillWork remembers your answer, so the same proposed change is not suggested again later.
+- **AI-merge this slot** asks your model to combine the current value with every pending update for that entity and field into one version that keeps real information from all of them, rather than you choosing sides. The proposed merge appears as an editable text box; review or rewrite it, then **Accept merged** to apply it and clear every pending update in that group at once, or **Cancel** to go back to handling them individually.
 
-There's no automatic merge yet — accepting always replaces the field with either the suggested value or whatever you edit it to, rather than an AI-assisted combination of old and new. If the same field has more than one pending suggestion (say, two different chapters each added something about a character's backstory), accepting one refreshes what the others are comparing against, so you're never accepting a sibling suggestion against a value that's already out of date — but each is still applied one at a time, in whatever order you handle them, not merged together into one final version automatically.
+If the same field has more than one pending suggestion (say, two different chapters each added something about a character's backstory) and you accept one individually rather than merging, that accept refreshes what the others are comparing against, so you're never accepting a sibling suggestion against a value that's already out of date.
 
 ### 6.14 Author notes
 
@@ -1486,7 +1497,7 @@ Bold, italic, underline, strikethrough, colour and embedded images are kept nati
 | Narrator beliefs | Claims your narrator makes that may be false, with status and the real truth. "Check for possible claims (AI)" proposes candidates. | Sidebar > Plan > Bible > Narrator beliefs |
 | Knowledge tracker | Who knows which secret from which chapter. A matrix view, and "Check awareness (AI)" catches a character acting on something too early. | Sidebar > Plan > Bible > Knowledge tracker |
 | Foreshadowing (Chekhov's Gun) | Setups you have planted and whether they paid off. "Check for setups (AI)" proposes candidates. Resolution is marked by you. | Sidebar > Plan > Bible > Foreshadowing (Chekhov's Gun) |
-| Bible updates | Review queue for changes to existing characters and locations found later. Accept your edited text, or keep what you have. | Sidebar > Review > Bible updates |
+| Bible updates | Review queue for changes to existing characters and locations found later, grouped by entity and field. Accept your edited text, keep what you have, or AI-merge every pending update for a slot into one combined version to review. | Sidebar > Review > Bible updates |
 | World & style | Title, genre, novel language, synopsis, style notes, prose sample, author voice fingerprint, world notes and Author's intent constraints. Saves itself. | Sidebar > Plan > Bible > World & style |
 | Author's intent constraints | Rules such as "never show violence on-page", each switchable. Enabled rules go into every AI call and into Continuity check. | World & style > Author's intent constraints. **Enter** adds a rule |
 | Author voice fingerprint | The same statistics as the dialogue fingerprint, measured on your narration, with a drift warning. Needs 10 or more narration paragraphs. | World & style > Author voice fingerprint |
@@ -1513,6 +1524,7 @@ Bold, italic, underline, strikethrough, colour and embedded images are kept nati
 | Search and filter | Searches the whole library, filterable by kind. | Research panel toolbar |
 | Show or hide from AI | The eye icon on a card keeps an item out of AI context and search without deleting it. | Research card > eye icon |
 | Open in its own app | Opens a PDF, text file or document in whichever program your computer uses for it. | **Double-click** the card |
+| Ask a question | Select research items with checkboxes, ask a question, and get an answer grounded only in what you selected, with clickable citations naming the item and its provenance tier. Says plainly when the selection doesn't answer the question. | Research panel toolbar > Ask a question |
 
 ### A.6 Story Analyst
 
