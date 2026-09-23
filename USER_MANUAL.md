@@ -92,7 +92,7 @@ The rest of this section describes the plain text import in detail.
 
 ### 2.1 Importing from other tools
 
-Bridges from other writing/plotting tools live under **Import from other tools** in the sidebar's Story section — click it to expand the submenu and pick a tool.
+Bridges from other writing/plotting tools live under **Import from other tools**, in the sidebar's Write destination, click it to expand the submenu and pick a tool.
 
 #### 2.1.1 Aeon Timeline
 
@@ -186,13 +186,13 @@ QuillWork's interface has four regions:
 | Region | Contents |
 |---|---|
 | **Top bar** | Project name, save status, **Autosave** switch, the theme button, a **Ctrl K** command-palette button, **Save**, **Export**, **Projects**, **Beta report**, **Settings**, **Help** (opens this manual inside QuillWork), and the **Close** button that shuts the server down cleanly |
-| **Left sidebar** | Story tools (Import, Embed manuscript, Version history, Cloud backup) and the chapter list stay always visible; **Bible**, **AI Tools**, and **Submission** are collapsible sections — click a section header to expand or collapse it. (An **Audio** section appears only if you turn on audiobook narration in Settings.) A **Stop AI** button and a live AI-connection status sit at the bottom; click the status to open Settings. |
+| **Left sidebar** | A row of seven destinations at the top, **Home**, **Write**, **Plan**, **Research**, **Analyse**, **Review**, **Publish**, picks which group of tools the sidebar below it shows; nothing is lost by switching, each destination just groups what already exists around a stage of writing your book. **Write** (the default) always shows the chapter list; some destinations nest their own tools under a further collapsible group (Plan's **Bible**, Write's **Import from other tools** and **Writing tools**, Publish's **Submission** and **Audio**), click a group header to expand or collapse it. A **Chat** button, a **Stop AI** button, and a live AI-connection status sit at the bottom, visible regardless of which destination is active; click the status to open Settings. |
 | **Main editor** | The chapter you're currently writing, in a distraction-light writing surface. A small **Research** tab sits at the top centre; pull it down to open the [Research Workspace](#612-research-workspace) |
 | **Bottom bar** | Formatting tools (new paragraph, headings, table, embed image, source view, bold, italic, underline, strikethrough, colour), quick actions (Check, Refine, Mark as claim), a free-text append box, the Scene beat and Chat panels (which expand upward when opened), and the **Auto-analyse** switch that turns background analysis on or off |
 
 Clicking any sidebar item other than a chapter opens a slide-out panel from the right. Only one panel is open at a time; press **Esc** or click **✕** to close it. **Esc** closes the frontmost thing first (an open edit window), then the panel underneath on the next press. Clicking outside a panel never closes it, on purpose, so a window that needs an answer can't be lost by accident. A **back arrow** at the top left of a panel means it was opened from inside another one, and takes you back.
 
-The **Bible**, **AI Tools**, **Submission**, and **Audio** sections collapse by default to keep the sidebar short — click the section name to expand it. This is purely a display state and doesn't affect anything else; expand whichever sections you use most.
+Within a destination, a nested group (**Bible** under Plan, **Import from other tools** and **Writing tools** under Write, **Submission** and **Audio** under Publish) collapses by default to keep the sidebar short; click the group name to expand it. This is purely a display state and doesn't affect anything else, expand whichever groups you use most.
 
 Hover over any button, control, or checkbox for a moment and a tooltip explains what it does — this covers the whole interface, so if you're ever unsure what something does, hovering is the fastest way to find out.
 
@@ -210,7 +210,16 @@ Hover over any button, control, or checkbox for a moment and a tooltip explains 
 
 ## 4. Connecting an AI Model
 
-QuillWork doesn't include a model — it talks to a model you're already running locally via **LM Studio** or **Ollama**, using their OpenAI-compatible APIs. It never sends your text anywhere else unless you explicitly configure a cloud provider (not available in this beta).
+QuillWork doesn't include a model: it talks to a model you're already running locally via **LM Studio** or **Ollama**, using their OpenAI-compatible APIs, or, if you choose to, a paid **Cloud AI** provider elsewhere on the internet (see [Cloud AI](#cloud-ai-optional-advanced) below). It never sends your text anywhere else unless you explicitly configure that.
+
+### AI control level
+
+**Settings > AI model & connection > AI control level** is the master switch over every background AI feature described below: **Manual**, **Assisted**, or **Automatic**.
+
+- **Manual** means exactly that: the AI only runs when you directly ask for it. No background analysis pass, no auto-extract, no search-index update, and no linked Scrivener or Word re-sync calls your model or embedding backend while this is set, whatever their own individual toggles below say. This is checked before every single one of those calls, not just once when QuillWork started, so switching to Manual mid-run stops the next call, not just a future one. Nothing you click directly is affected: Re-scan bible, a manual Sync now, Analyse this chapter and every other button you press yourself still work exactly as they do today.
+- **Assisted** and **Automatic** both let the background features below run, each still governed by its own toggle. The two behave the same today: every one of QuillWork's background AI features already either proposes and waits for your decision (Bible updates) or produces a read-only reading (the Story Analyst), so there is nothing yet for Automatic to safely do on its own that Assisted does not. Assisted is the default.
+
+Switching to Manual overrides every toggle below it immediately, even if you leave them switched on; you will simply not see them do anything until you switch back. The [AI Activity screen](#133-ai-activity) always tells you the truth about what is actually running, so you can confirm nothing started while you were away.
 
 ### Quick AI setup (optional)
 
@@ -255,6 +264,16 @@ Two things worth knowing. Automatic setup needs the Ollama backend; with LM Stud
 > **Ollama users, one thing to double-check:** if you've also pulled an embedding model (e.g. `nomic-embed-text`, used for the search index) alongside your writing models, it will appear in this same dropdown with no visual distinction from a real chat model — Ollama doesn't expose the information QuillWork would need to tell them apart automatically. LM Studio does filter these out, but Ollama's model listing has no equivalent. If Chat or Scene beat suddenly stops responding, check Settings and confirm the **Model** field is actually pointed at a chat/instruct model, not an embedding one.
 
 > **A green dot means the connection works — it doesn't mean every request will fit.** The Test button only ever sends a tiny request (asking for the model list), so it can't tell you whether a *real* generation — your full bible, retrieved manuscript context, and the passage itself — will actually fit in your model's loaded context window. A model with a small context and a detailed bible can go from "connected, model loaded, everything green" straight to a request that's too large, with nothing in between to warn you. QuillWork checks this separately, immediately before every generation, and tells you plainly if a request won't fit rather than leaving you waiting on it — see [Troubleshooting](#14-troubleshooting) and [Models with a larger context window](#models-with-a-larger-context-window) if you see that message.
+
+### Cloud AI (optional, advanced)
+
+**Settings > AI model & connection** has a third backend option, **Cloud AI**, alongside LM Studio and Ollama, for writing, analysis and chat through a paid hosted AI provider instead of a model running on your own computer. Picking it shows a warning first, "Journey to the Dark-Side", naming exactly what QuillWork sends: the chapter or scene text involved in whichever feature you are using, the Bible entries QuillWork includes as context, and anything you type into Chat, all through your own account with that provider. It never sends your project file, or anything at all while you are not using a feature, and the [AI control level](#ai-control-level) and every feature's own toggle above still apply.
+
+Enter the provider's OpenAI-compatible endpoint URL and your API key in the same **Address (endpoint)** and **API key** fields used for LM Studio and Ollama, then click **Test**. If the provider does not list its models the way LM Studio and Ollama do, a **Model ID** field appears under the dropdown so you can type the exact ID from the provider's own documentation.
+
+**The search index still needs a local backend.** LM Studio and Ollama both run a small embedding model locally for the search index; a cloud provider is not set up for QuillWork to do this automatically, so **Set up embedding model automatically** says plainly that it needs LM Studio or Ollama running as well, rather than failing quietly.
+
+**This was checked end to end against a real hosted account (OpenRouter):** writing (Scene beat), analysis (a continuity check) and Chat all produced real, correct results, including a continuity check that correctly caught a genuine planted contradiction against the actual bible.
 
 ### Connecting across machines, WSL, or Docker
 
@@ -641,7 +660,7 @@ Changes in this panel save automatically as you type (a short debounce, no need 
 
 **Writing in another language.** Two settings work together:
 1. Set **Language** here so the AI writes *in* that language.
-2. In **Writing style rules** (AI Tools), use the **"Load a starter pack for another language…"** dropdown to load a ready-made, language-*aware* set of prose rules for **French, Spanish, or German** — these aren't just translations; the AI-tell word lists and dialogue-punctuation guidance are correct for each language (French and Spanish use the em-dash for dialogue, German uses „…", and so on). Review and **Save**. Because the rules are just a style pack, communities can share packs for any other language too.
+2. In **Writing style rules** (Settings > More), use the **"Load a starter pack for another language…"** dropdown to load a ready-made, language-*aware* set of prose rules for **French, Spanish, or German** — these aren't just translations; the AI-tell word lists and dialogue-punctuation guidance are correct for each language (French and Spanish use the em-dash for dialogue, German uses „…", and so on). Review and **Save**. Because the rules are just a style pack, communities can share packs for any other language too.
 
 Setting **Language** also switches the editor's built-in **browser spell-checker** to that language automatically (and flips the editor to right-to-left for Arabic and Hebrew). You may need that language's dictionary enabled in your browser for the underlines to appear.
 
@@ -756,7 +775,7 @@ There's no automatic merge yet — accepting always replaces the field with eith
 
 ### 6.14 Author notes
 
-**Author notes** in the sidebar's Bible section is a place for project-wide scratch notes. Everything in it, and every per-chapter note ([5.6](#56-chapter-notes)), is never sent to the AI: it is kept out of extraction, generation, continuity and search. Both are always kept in Bible JSON exports, backups and snapshots. In other exports they are included only if you tick **Author's notes** on the Export panel (Markdown ticks it by default; the manuscript format never includes them).
+**Author notes** in the sidebar's Plan destination (Bible group) is a place for project-wide scratch notes. Everything in it, and every per-chapter note ([5.6](#56-chapter-notes)), is never sent to the AI: it is kept out of extraction, generation, continuity and search. Both are always kept in Bible JSON exports, backups and snapshots. In other exports they are included only if you tick **Author's notes** on the Export panel (Markdown ticks it by default; the manuscript format never includes them).
 
 ---
 
@@ -941,7 +960,7 @@ New chapters get scored automatically (manuscript import, Add written chapter). 
 
 ### 8.12 Story Analyst
 
-**Story Analyst** (sidebar > AI Tools > Story Analyst, or **Ctrl+K** then "Story Analyst") reads what actually happens in your story: events, what causes what, who knows what and when, and the questions the reader is still waiting on. Everything it finds becomes a structure you can see and correct. This is **read-only analysis**: nothing here ever changes your manuscript, and nothing it finds is silently trusted, because every row is reviewable, editable or deletable.
+**Story Analyst** (sidebar > Analyse > Story Analyst, or **Ctrl+K** then "Story Analyst") reads what actually happens in your story: events, what causes what, who knows what and when, and the questions the reader is still waiting on. Everything it finds becomes a structure you can see and correct. This is **read-only analysis**: nothing here ever changes your manuscript, and nothing it finds is silently trusted, because every row is reviewable, editable or deletable.
 
 **Calculated, AI-judged, or both.** Everything QuillWork works out or writes to inform you carries a small label saying how it was arrived at, so nothing looks more certain than it is. **Calculated** means it is worked out from your story data by counting and comparing, and the same data gives the same answer every time. **AI-judged** means the AI produced it, so it can vary between runs; where it says something about your text, the quotes it rests on are shown. **Calculated + AI-judged** means part is calculated and part is the AI's judgement, and each judged part shows its quotes. None of these describes how well the book is written. They describe your story's structure: what happens, who knows what, what is left open.
 
@@ -951,7 +970,7 @@ The labels appear beside every analysis, check, score and suggestion QuillWork p
 |---|---|
 | Calculated | The structural score and its five checks; Narrative Debt, Who drives the plot, Narrative momentum, Dead-weight scenes, Suspense architecture, Domino test, Reveal timing, Dialogue fingerprint comparison, Facts the reader learns before the protagonist, Emotional echoes and Parallel scenes (the candidate pairs); the overdue-promises list; Characters > Check for duplicates. |
 | AI-judged | Events & causality, Questions & promises and Known facts; every finding the AI writes in a health report; each chapter's tension in Pacing; the Continuity check; the Un-AI text scan; Plot ideas; A → B Bridge paths; Chat answers; the Synopsis and Query letter; Bible updates; Suggest payoffs (AI); Seed motif from selection; every check marked (AI) in the Characters, Worldbuilding, Facts, Narrator beliefs, Knowledge and Foreshadowing panels. |
-| Calculated + AI-judged | The Health report as a whole; What if…; Motifs, symbols & themes; Discover themes (AI); the Character arc simulator; the Evidence check; the Dashboard; Characters > Deeper check (AI). |
+| Calculated + AI-judged | The Health report as a whole; What if…; Motifs, symbols & themes; Discover themes (AI); the Character arc simulator; the Evidence check; the Dashboard; AI Activity; Characters > Deeper check (AI). |
 
 Your own words and records are not labelled, and neither are plain status lines such as "3 chapters indexed". Text you asked the AI to write for you to use, such as a scene beat or a refined passage, is marked by where it appears instead (an amber draft block, or the Refine result).
 
@@ -1065,7 +1084,7 @@ An embedding model is **not** your writing model — it's a small second model t
 - Every time you save a chapter (manual save, autosave, or switching chapters), and when you add one with [Add written chapter](#87-add-written-chapter), it is re-embedded in the background **only if the text actually changed**: saving the same text again makes no request to the embedding model.
 - The same applies to characters, locations, facts, worldbuilding entries and relationships: adding, editing, deleting or merging one, or bringing some in with an import, queues a background re-embed, again only for what actually changed. A fact or entry you have switched off for AI context is never embedded.
 - As a safety net, about once a minute QuillWork checks that the index still matches your chapters and Bible entries, and brings it back in step if it does not, whatever changed them. It never starts building an index that was never built: that is your choice, below.
-- **Embed manuscript** (sidebar, Story section, after asking you to confirm) and **Rebuild search index** (in the Search index panel) force a full rebuild of the chapters, Bible entries and research assets, whether or not they changed. Use this after a bulk import from an older QuillWork version, after upgrading from a version that predates this section, or if you've made large manual edits outside the normal save flow. Scenes are embedded when they are analysed, for Emotional echoes and Parallel scenes.
+- **Embed manuscript** (sidebar, Write destination, after asking you to confirm) and **Rebuild search index** (in the Search index panel) force a full rebuild of the chapters, Bible entries and research assets, whether or not they changed. Use this after a bulk import from an older QuillWork version, after upgrading from a version that predates this section, or if you've made large manual edits outside the normal save flow. Scenes are embedded when they are analysed, for Emotional echoes and Parallel scenes.
 - The **Search index** panel shows how much is indexed, counted apart: chapters (and the passages they were cut into), Bible entries, scenes and research items.
 - Upgrading an existing project to the newer storage format triggers a one-time automatic re-embed of every chapter and Bible entry already in it. There's nothing to do on your end, and retrieval simply falls back to a plain, unscoped bible view until it finishes (the same graceful fallback Chat already uses when no embedding model is set up at all).
 
@@ -1181,14 +1200,14 @@ Select **Manuscript** as the export format for a document formatted to the indus
 
 ## 12. Audiobook Narration
 
-**Narrate**, in the sidebar's **Audio** section. Generates an audiobook narration of your novel using a local text-to-speech engine — [Chatterbox TTS Server](https://github.com/devnen/Chatterbox-TTS-Server) — running separately on your machine (QuillWork talks to it over HTTP; it doesn't install or manage it for you).
+**Narrate**, in the sidebar's Publish destination (**Audio** group). Generates an audiobook narration of your novel using a local text-to-speech engine — [Chatterbox TTS Server](https://github.com/devnen/Chatterbox-TTS-Server) — running separately on your machine (QuillWork talks to it over HTTP; it doesn't install or manage it for you).
 
 **Audiobook narration is an optional, opt-in feature** — QuillWork works fully without it, and by default there's no audio UI at all (no Narrate button, no prompts). You only turn it on if you want it.
 
 ### 12.1 Setup
 
 1. Install the Chatterbox TTS server once (see its own documentation) — by default it runs at `http://localhost:8004`, which is what QuillWork expects out of the box.
-2. Open **Settings** → **Audiobook narration** and switch on **Enable audiobook narration**. This reveals the audio controls and adds a **Narrate** item to the sidebar's Audio section. (Turn the toggle back off any time to hide it all again.)
+2. Open **Settings** → **Audiobook narration** and switch on **Enable audiobook narration**. This reveals the audio controls and adds a **Narrate** item to the sidebar's Publish destination (Audio group). (Turn the toggle back off any time to hide it all again.)
 3. In that same Settings section you can point QuillWork at your Chatterbox install — its **server address**, its **folder**, and (advanced) its **Python** — all with guidance beneath each field. Then **Start server** launches Chatterbox in a separate console window and waits for it to come online (this can take a while the first time, while the model loads); **Stop** shuts it down. If you'd rather start Chatterbox yourself, you can — QuillWork just needs the server address to be right.
 4. Open **Book setup** and choose a **Narrator voice type**:
    - **Predefined voice** — one of Chatterbox's ~30 built-in voices
@@ -1231,7 +1250,7 @@ A chapter that hasn't been through Scene analysis yet, or where no character has
 
 ### 13.1 Version history
 
-Saving keeps your *current* work safe; **version history** lets you go *back*. Open **Version history** in the sidebar's Story section.
+Saving keeps your *current* work safe; **version history** lets you go *back*. Open **Version history** in the sidebar's Review destination.
 
 - **Automatic snapshots** — QuillWork snapshots the whole novel when you open it and roughly every 10 minutes while you work. Identical states aren't snapshotted twice, so the list stays meaningful. Automatic snapshots are pruned to the most recent 40 per novel.
 - **Named versions** — click **Save a version now** and give it a name (e.g. "First draft done", "Before the big rewrite") at any milestone. Named versions are **kept forever** — they're never pruned.
@@ -1246,7 +1265,7 @@ Everything is stored locally: each snapshot is an ordinary `.zip` file (containi
 
 ### 13.2 Cloud backup
 
-Open **Cloud backup** in the sidebar's Story section. This backs up your whole novel to a folder in **your own** cloud — QuillWork hosts nothing and never sees your work.
+Open **Cloud backup** in the sidebar's Review destination. This backs up your whole novel to a folder in **your own** cloud — QuillWork hosts nothing and never sees your work.
 
 **Why it works this way:** the first time you open the panel, a card explains it — in short, your manuscript never passes through us, there's no account or subscription with us, you choose the provider (including end-to-end-encrypted ones like Proton Drive or Sync.com), and it keeps working forever because nothing depends on a server we run. You can reopen that explanation with the **"Why we do it this way →"** link.
 
@@ -1259,6 +1278,16 @@ Open **Cloud backup** in the sidebar's Story section. This backs up your whole n
 Each backup is a self-contained `.zip` you can open anywhere, with or without QuillWork — you fully own your backups, and nothing is ever sent to us.
 
 **Continuous backup, for a project on the newer database format.** Below the folder and on-close settings, tick **"Keep a continuous copy in my synced folder"** to get back the *continuous* protection the old data-folder tip used to give, without its corruption risk. On a timer (15 minutes by default; adjust with **Check every (minutes)**), QuillWork writes a complete, always-consistent snapshot of that project's live database into the same backup folder above, safe for your cloud app to upload the moment it changes. It's named after your project's own title so it's identifiable without opening QuillWork, and it's skipped silently (with the last successful copy time shown under the setting) if the folder is temporarily unreachable; your work in the app is never interrupted by it. This only does anything once a project has moved to the newer database format; a project still on the older JSON format is already fully covered by the dated `.zip` backup and back-up-on-close above.
+
+### 13.3 AI Activity
+
+Open **AI Activity** in the sidebar's Review destination for one screen answering "what has the AI done, is doing, and is proposing?" without leaving it.
+
+- **Running now** lists any job in progress (a Story Analyst pass, a Health report run), with a **Cancel** button, the same cancel a running job already offers from within those panels.
+- **Awaiting your decision** brings every undismissed Health report finding and every pending Bible update into one list, each with its passage and, for a finding, **Dismiss**, or for a Bible update, **Accept** or **Dismiss**. Accepting here applies the suggestion's proposed text as it stands; open **Bible updates** itself if you want to edit the wording first.
+- **Recently dismissed** shows findings you have already dismissed by title, and a count for other kinds of suggestion you have dismissed elsewhere (Discover themes candidates, for instance).
+
+Everything on this screen is read straight from state QuillWork already keeps; opening it never starts a new AI call, and nothing you have not explicitly accepted or dismissed changes because you looked at it.
 
 ---
 
@@ -1337,7 +1366,7 @@ The bundle contains: your QuillWork version and platform, your settings with eve
 
 These rules are injected into the calls that draft or review your prose: Scene beat, Refine, Plot ideas and the Un-AI scan. They're the baseline for how QuillWork asks the model to write. The Synopsis generator and Query letter follow their own conventions, and Bridge plans events rather than writing prose, so they do not use these rules.
 
-**You can edit them.** Open **Writing style rules** in the sidebar's AI Tools section (or the command palette). The panel shows the exact rules below in an editable box — tune them to your own taste (add your own banned words, change the dialogue-tag guidance, whatever) and click **Save rules**; your version is used for every creative call from then on. **Reset to default** restores QuillWork's baseline at any time. Your customisation is stored locally in `prompts.json` in your data folder.
+**You can edit them.** Open **Writing style rules** under Settings > More (or the command palette). The panel shows the exact rules below in an editable box — tune them to your own taste (add your own banned words, change the dialogue-tag guidance, whatever) and click **Save rules**; your version is used for every creative call from then on. **Reset to default** restores QuillWork's baseline at any time. Your customisation is stored locally in `prompts.json` in your data folder.
 
 **Style packs — share your style.** The same panel has **Export pack** and **Import pack** buttons. Export saves your current rules to a small `.json` file you can send to anyone (post it in a writing community, hand it to a co-author); Import loads a pack someone shared so you can review it and click Save to adopt it. There's no account and nothing is uploaded — a pack is just a file you own and pass around.
 
@@ -1360,12 +1389,12 @@ The **Un-AI text** tool ([8.6](#86-un-ai-text)) runs this same rule set as a sta
 
 ## Appendix A. Complete Function Reference
 
-Every function QuillWork performs, what it does, and exactly how to reach it. Column 3 gives the menu route (read `Sidebar > Bible > Characters` as "in the left sidebar, open the Bible group, click Characters"), any hotkey, and whether the function is also in the **Ctrl+K** command palette. Hotkeys are written for Windows and Linux; on a Mac use **Cmd** where the table says **Ctrl**.
+Every function QuillWork performs, what it does, and exactly how to reach it. Column 3 gives the menu route (read `Sidebar > Plan > Bible > Characters` as "in the left sidebar, open the Bible group, click Characters"), any hotkey, and whether the function is also in the **Ctrl+K** command palette. Hotkeys are written for Windows and Linux; on a Mac use **Cmd** where the table says **Ctrl**.
 
 Three things apply to almost everything below:
 
 - **Only one slide-out panel is open at a time.** Press **Esc** or the panel's ✕ to close it. Clicking outside a panel never closes it, on purpose, so a choice window can't be lost by accident.
-- **The sidebar groups are collapsed by default.** Click a group name (Bible, AI Tools, Submission, Import from other tools, Audio) to expand it.
+- **Nested sidebar groups are collapsed by default.** Click a group name (Bible under Plan; Import from other tools and Writing tools under Write; Submission and Audio under Publish) to expand it.
 - **Some features need the newer storage format.** The Research Workspace, the Story Analyst and the continuous cloud copy need it. Opening a project migrates it automatically, with a backup kept first.
 
 ### A.1 The window, navigation and help
@@ -1382,7 +1411,7 @@ Three things apply to almost everything below:
 | Beta report | Opens the beta report form in your browser. Nothing is sent from inside the app. | Top bar > Beta report; or Ctrl+K, "Send beta report" |
 | Getting started guide | The four-step first-run wizard: welcome, connect your AI, create or import a novel, tips. Shown automatically on a brand-new install. | Settings > More > Re-run the setup guide; or Ctrl+K, "Getting started" |
 | Stop AI | Force-stops every AI operation running now, in any panel. Grey when idle, red only while an AI call is in flight. | Sidebar footer > Stop AI |
-| Connection strip | Shows which backend (LM Studio or Ollama) you're on and whether it is connected, has no model loaded, or is unreachable. | Sidebar footer. Click it to open Settings |
+| Connection strip | Shows which backend (LM Studio, Ollama, or Cloud AI) you're on and whether it is connected, has no model loaded, or is unreachable. | Sidebar footer. Click it to open Settings |
 | Close | Asks about any unapproved AI draft, saves, backs up if you enabled backup-on-close, and shuts QuillWork down cleanly. | Top bar > Close (red) |
 | Tooltips | Hover any control for about a third of a second for an explanation. | Hover anywhere |
 | Interface language | Shows QuillWork's own buttons and menus in English (UK or US), French, German or Spanish. Separate from your novel's language. | Settings > Language |
@@ -1391,10 +1420,10 @@ Three things apply to almost everything below:
 
 | Function | What it does | How to access it |
 |---|---|---|
-| Chapter list | Every chapter with its number, title and word count. Click to open. | Sidebar > Chapters |
-| New chapter | Creates and opens a blank chapter. | Sidebar > New chapter (below the list); or Ctrl+K, "New chapter" |
-| Reorder chapters | Swaps a chapter with its neighbour and renumbers both. | Sidebar > Chapters > hover a row > ↑ ↓ arrows |
-| Delete chapter | Permanently removes a chapter, after confirmation. | Sidebar > Chapters > hover a row > ✕ |
+| Chapter list | Every chapter with its number, title and word count. Click to open. | Sidebar > Write > Chapters |
+| New chapter | Creates and opens a blank chapter. | Sidebar > Write > New chapter (below the list); or Ctrl+K, "New chapter" |
+| Reorder chapters | Swaps a chapter with its neighbour and renumbers both. | Sidebar > Write > Chapters > hover a row > ↑ ↓ arrows |
+| Delete chapter | Permanently removes a chapter, after confirmation. | Sidebar > Write > Chapters > hover a row > ✕ |
 | Chapter title and POV | Edit the chapter title; set an optional viewpoint character (with autocomplete). | Chapter header |
 | Chapter word count | Words in the open chapter (markdown symbols aren't counted). | Chapter header, right. Total for the whole book: bottom bar, right |
 | Chapter note | A private note for this chapter that is never sent to the AI. The panel is resizable. | Chapter header > sticky-note icon |
@@ -1420,44 +1449,46 @@ Bold, italic, underline, strikethrough, colour and embedded images are kept nati
 |---|---|---|
 | Scene beat | Describe what happens next, pick a length, generate. The draft streams into an editable block: Stop, Approve, Regenerate or Discard. Optional "Intended effect" tick-boxes ask the model to aim for something specific and then report what it detected. Optional "Momentum target" asks for a minimum number of real state changes, plus up to three named things (a relationship, an open question or promise, a character's intention) that must change, then reports a real count against each, never a model guess. If you have turned on the continuity-on-approve setting, approving also runs a continuity check on that passage. | Bottom toolbar > Scene beat (gold). Hotkey: **Ctrl+Enter** in the brief box to generate |
 | Per-generation model picker | Chooses a different model for one generation only. | Scene beat panel and Refine panel, the small model dropdown |
-| Chat | Ask questions about your manuscript and Bible; answers are grounded in your own text and, once the Story Analyst has run, in calculated figures such as who drives the plot and what is still unresolved. | Bottom toolbar > Chat; or Sidebar > AI Tools > Chat; or Ctrl+K, "Chat". **Enter** sends, **Shift+Enter** new line |
-| Plot ideas | Three distinct ideas of a chosen type, including "pay off an overdue promise", "future consequences of a chapter's events" and "give a reactive character the initiative" (pick a character, least active first). | Sidebar > AI Tools > Plot ideas |
-| A → B bridge | Give a start point and an end point; get three routes between them. | Sidebar > AI Tools > A → B bridge |
-| Continuity check | Checks a passage against the Bible, earlier text, narrator claims, research references and your author-intent rules, with severity and a suggested fix. | Sidebar > AI Tools > Continuity check; or bottom toolbar > Check (pre-fills your selection) |
-| Refine selection | Rewrites a selected passage to an instruction, with preset chips and a "match a character's voice" picker. Replace selection writes it back. | Sidebar > AI Tools > Refine selection; or bottom toolbar > Refine |
-| Un-AI text | Scans a chapter or selection for AI-sounding writing and proposes human rewrites you tick and apply. | Sidebar > AI Tools > Un-AI text |
-| Add written chapter | Paste a chapter you already wrote; QuillWork summarises it, extracts characters and threads, runs a continuity check and saves it. Retry or abandon if a stage fails. | Sidebar > AI Tools > Add written chapter |
-| Pacing | Scores each chapter's tension from 0 to 10 and draws a chart. Suspense markers appear once Story Analyst data exists. Click a dot to open that chapter. | Sidebar > AI Tools > Pacing > **Analyze chapters** |
-| Search index | Semantic and keyword search that lets the AI work with a book too long for its context window. Set up an embedding model and rebuild the index here. | Sidebar > AI Tools > Search index; or Sidebar > Embed manuscript (starts a rebuild at once) |
-| Writing style rules | The editable prose rules injected into every creative AI call. Save, reset, export or import a style pack, or load a starter pack for another language. | Sidebar > AI Tools > Writing style rules; or Settings > More |
+| Chat | Ask questions about your manuscript and Bible; answers are grounded in your own text and, once the Story Analyst has run, in calculated figures such as who drives the plot and what is still unresolved. | Bottom toolbar > Chat; or Chat (sidebar footer, always visible); or Ctrl+K, "Chat". **Enter** sends, **Shift+Enter** new line |
+| Plot ideas | Three distinct ideas of a chosen type, including "pay off an overdue promise", "future consequences of a chapter's events" and "give a reactive character the initiative" (pick a character, least active first). | Sidebar > Plan > Plot ideas |
+| A → B bridge | Give a start point and an end point; get three routes between them. | Sidebar > Plan > A → B bridge |
+| Continuity check | Checks a passage against the Bible, earlier text, narrator claims, research references and your author-intent rules, with severity and a suggested fix. | Sidebar > Write > Writing tools > Continuity check; or bottom toolbar > Check (pre-fills your selection) |
+| Refine selection | Rewrites a selected passage to an instruction, with preset chips and a "match a character's voice" picker. Replace selection writes it back. | Sidebar > Write > Writing tools > Refine selection; or bottom toolbar > Refine |
+| Un-AI text | Scans a chapter or selection for AI-sounding writing and proposes human rewrites you tick and apply. | Sidebar > Write > Writing tools > Un-AI text |
+| Add written chapter | Paste a chapter you already wrote; QuillWork summarises it, extracts characters and threads, runs a continuity check and saves it. Retry or abandon if a stage fails. | Sidebar > Write > Writing tools > Add written chapter |
+| Pacing | Scores each chapter's tension from 0 to 10 and draws a chart. Suspense markers appear once Story Analyst data exists. Click a dot to open that chapter. | Sidebar > Analyse > Pacing > **Analyze chapters** |
+| Search index | Semantic and keyword search that lets the AI work with a book too long for its context window. Set up an embedding model and rebuild the index here. | Sidebar > Analyse > Search index; or Sidebar > Write > Embed manuscript (starts a rebuild at once) |
+| Writing style rules | The editable prose rules injected into every creative AI call. Save, reset, export or import a style pack, or load a starter pack for another language. | Settings > More > Writing style rules |
 | Mark as claim | Records a narrator claim from selected text so the AI never treats it as established fact. | Bottom toolbar > Mark as claim (select text first) |
 
 ### A.4 The novel Bible
 
 | Function | What it does | How to access it |
 |---|---|---|
-| Characters | Character cards with role, aliases, personality, backstory, arc and voice. Also: duplicate check, AI deeper check, and Check for contradictions (AI). | Sidebar > Bible > Characters |
+| Characters | Character cards with role, aliases, personality, backstory, arc and voice. Also: duplicate check, AI deeper check, and Check for contradictions (AI). | Sidebar > Plan > Bible > Characters |
 | Dialogue fingerprint | Per-character speech statistics (sentence length, contractions, questions, interruptions), a voice-drift warning, and an AI "observed voice" suggestion you accept or dismiss. Needs 10 or more of your own dialogue lines. | Characters > open a character > Dialogue fingerprint |
 | Importance over time | Shows how much of the plot a character drives across three bands of the book, as a list or a chart. | Characters > open a character > Importance over time |
 | Character psychology | Infers core want, core fear, defence mechanism and wound from what the character actually does on the page, with the moments cited and each quote openable in the chapter. | Characters > open a character > Suggest character psychology (AI) |
-| Character contradiction check | Finds places where a character acts against their own established traits, quoting the passage. Suggestion only; Dismiss remembers. | Sidebar > Bible > Characters > Check for contradictions (AI) |
-| Locations | Places with description, atmosphere, sounds, smells and who is usually there. | Sidebar > Bible > Locations |
-| Worldbuilding | Structured rules: magic systems, factions, religions, languages. "Check consistency (AI)" flags prose that breaks an established rule. | Sidebar > Bible > Worldbuilding |
-| Facts & constants | Numbers you assert (prices, distances, dates), fed into every AI call unless you exclude them, with an optional consistency scan. | Sidebar > Bible > Facts & constants |
-| Relationships | Pairs of characters with a dynamic, a 0 to 10 tension and kinds. List view, or a visual web where line weight shows tension. "How does X know Y?" finds the shortest connecting chain. | Sidebar > Bible > Relationships |
-| Plot threads | Threads with status and introduction chapter. The Visual view is a bar per thread across the chapters it appears in (needs a Story Analyst run). | Sidebar > Bible > Plot threads |
-| Timeline | Events by chapter and story day. List view, or swim-lanes grouped by character or by plot thread. | Sidebar > Bible > Timeline |
-| Narrator beliefs | Claims your narrator makes that may be false, with status and the real truth. "Check for possible claims (AI)" proposes candidates. | Sidebar > Bible > Narrator beliefs |
-| Knowledge tracker | Who knows which secret from which chapter. A matrix view, and "Check awareness (AI)" catches a character acting on something too early. | Sidebar > Bible > Knowledge tracker |
-| Foreshadowing (Chekhov's Gun) | Setups you have planted and whether they paid off. "Check for setups (AI)" proposes candidates. Resolution is marked by you. | Sidebar > Bible > Foreshadowing (Chekhov's Gun) |
-| Bible updates | Review queue for changes to existing characters and locations found later. Accept your edited text, or keep what you have. | Sidebar > Bible > Bible updates |
-| World & style | Title, genre, novel language, synopsis, style notes, prose sample, author voice fingerprint, world notes and Author's intent constraints. Saves itself. | Sidebar > Bible > World & style |
+| Character contradiction check | Finds places where a character acts against their own established traits, quoting the passage. Suggestion only; Dismiss remembers. | Sidebar > Plan > Bible > Characters > Check for contradictions (AI) |
+| Locations | Places with description, atmosphere, sounds, smells and who is usually there. | Sidebar > Plan > Bible > Locations |
+| Worldbuilding | Structured rules: magic systems, factions, religions, languages. "Check consistency (AI)" flags prose that breaks an established rule. | Sidebar > Plan > Bible > Worldbuilding |
+| Facts & constants | Numbers you assert (prices, distances, dates), fed into every AI call unless you exclude them, with an optional consistency scan. | Sidebar > Plan > Bible > Facts & constants |
+| Relationships | Pairs of characters with a dynamic, a 0 to 10 tension and kinds. List view, or a visual web where line weight shows tension. "How does X know Y?" finds the shortest connecting chain. | Sidebar > Plan > Bible > Relationships |
+| Plot threads | Threads with status and introduction chapter. The Visual view is a bar per thread across the chapters it appears in (needs a Story Analyst run). | Sidebar > Plan > Bible > Plot threads |
+| Timeline | Events by chapter and story day. List view, or swim-lanes grouped by character or by plot thread. | Sidebar > Plan > Bible > Timeline |
+| Narrator beliefs | Claims your narrator makes that may be false, with status and the real truth. "Check for possible claims (AI)" proposes candidates. | Sidebar > Plan > Bible > Narrator beliefs |
+| Knowledge tracker | Who knows which secret from which chapter. A matrix view, and "Check awareness (AI)" catches a character acting on something too early. | Sidebar > Plan > Bible > Knowledge tracker |
+| Foreshadowing (Chekhov's Gun) | Setups you have planted and whether they paid off. "Check for setups (AI)" proposes candidates. Resolution is marked by you. | Sidebar > Plan > Bible > Foreshadowing (Chekhov's Gun) |
+| Bible updates | Review queue for changes to existing characters and locations found later. Accept your edited text, or keep what you have. | Sidebar > Review > Bible updates |
+| World & style | Title, genre, novel language, synopsis, style notes, prose sample, author voice fingerprint, world notes and Author's intent constraints. Saves itself. | Sidebar > Plan > Bible > World & style |
 | Author's intent constraints | Rules such as "never show violence on-page", each switchable. Enabled rules go into every AI call and into Continuity check. | World & style > Author's intent constraints. **Enter** adds a rule |
 | Author voice fingerprint | The same statistics as the dialogue fingerprint, measured on your narration, with a drift warning. Needs 10 or more narration paragraphs. | World & style > Author voice fingerprint |
-| Author notes | A project-wide notes box that is never sent to the AI. | Sidebar > Bible > Author notes |
-| Series | Link books into a series and share characters, locations and world elements across them. | Sidebar > Bible > Series |
-| Book setup | Front and back matter for exports: author, ISBN, copyright, dedication, epigraph, preface, acknowledgments, about the author, submission contact details. | Sidebar > Bible > Book setup |
+| Author notes | A project-wide notes box that is never sent to the AI. | Sidebar > Plan > Bible > Author notes |
+| Series | Link books into a series and share characters, locations and world elements across them. | Sidebar > Plan > Bible > Series |
+| Book setup | Front and back matter for exports: author, ISBN, copyright, dedication, epigraph, preface, acknowledgments, about the author, submission contact details. | Sidebar > Plan > Bible > Book setup |
 | Deleting Bible items | Deleting a character, location, world element, relationship, plot thread, timeline event, narrator claim, fact, tracked secret, foreshadowing setup or author's-intent rule always asks first. Version history can restore an earlier copy of the novel. | The Delete button in each item's edit window |
+| AI control level | Manual, Assisted or Automatic. Manual stops every background AI feature (analysis, auto-extract, search-index updates, linked file-sync re-syncs) from calling the model, checked before each call, not just once. Assisted (the default) and Automatic both let your own toggles below govern each feature; the two behave the same today. Your own direct clicks are never affected. | Settings > AI model & connection > AI control level |
+| Cloud AI backend | A third connection option alongside LM Studio and Ollama, for a paid hosted AI provider instead of a model on your own computer. Shows a warning naming exactly what gets sent before it takes effect. Not yet checked end to end against a real hosted account. | Settings > AI model & connection > Cloud AI |
 | Auto-extract Bible info | While you write, quietly adds characters, locations, threads, facts and relationships from new text. Changes to existing entries go to Bible updates. On by default. | Settings > AI model & connection > Auto-extract Bible info as I write |
 
 ### A.5 Research Workspace
@@ -1478,7 +1509,7 @@ Bold, italic, underline, strikethrough, colour and embedded images are kept nati
 
 ### A.6 Story Analyst
 
-Open it from `Sidebar > AI Tools > Story Analyst`, or press **Ctrl+K** and type "Story Analyst". It has seven tabs: Events & causality, Questions & promises, Known facts, Health report, What if…, Patterns, Evidence check. Run **Scenes** analysis on a chapter first (A.2); the Analyst reads scenes. Every result is labelled **Calculated** (worked out from your story data, identical on every run), **AI-judged** (produced by the AI, with the quotes it rests on) or **Calculated + AI-judged** (part of each).
+Open it from `Sidebar > Analyse > Story Analyst`, or press **Ctrl+K** and type "Story Analyst". It has eight tabs: Dashboard, Events & causality, Questions & promises, Known facts, Health report, What if…, Patterns, Evidence check. Run **Scenes** analysis on a chapter first (A.2); the Analyst reads scenes. Every result is labelled **Calculated** (worked out from your story data, identical on every run), **AI-judged** (produced by the AI, with the quotes it rests on) or **Calculated + AI-judged** (part of each).
 
 | Function | What it does | How to access it |
 |---|---|---|
@@ -1512,8 +1543,9 @@ Open it from `Sidebar > AI Tools > Story Analyst`, or press **Ctrl+K** and type 
 | What if… (Counterfactual Laboratory) | Choose a character and a chapter and describe a premise. QuillWork removes that character's actions from that chapter on, follows the consequences through your causality graph, shows what percentage of the story's other events would still occur, and narrates whether the plot would unravel, ripple or barely change. Never touches your manuscript. | Story Analyst > What if… > Explore |
 | Narrative Debt | One number, with its breakdown, for everything the manuscript still owes the reader: overdue promises, dead-weight scenes and characters whose importance is fading. Built entirely from figures shown elsewhere on this screen; never a quality score. Every contributing item links to its passage. | Story Analyst > Patterns > Narrative Debt |
 | Dashboard | Narrative Debt as the headline, a priority list of each area's own worst item, and six areas (plot, character development, narrative questions, pacing, continuity, structure). Every figure is read from what the rest of the Story Analyst already works out; opening it never starts a model call. | Story Analyst > Dashboard |
+| AI Activity | Running jobs with Cancel, every undismissed finding and pending Bible update awaiting your decision with Accept/Dismiss, and a recently-dismissed feed. All read from state already kept; opening it never starts a model call. | Sidebar > Review > AI Activity |
 | Suspense architecture | Classifies each moment as dramatic irony, suspense, mystery (neither reader nor character knows yet) or revelation, per fact and character. | Story Analyst > Patterns > Suspense architecture (List or Visual) |
-| Suspense markers on Pacing | Small triangles on the Pacing chart showing where irony, suspense, mystery and revelation land. | Sidebar > AI Tools > Pacing (appears automatically) |
+| Suspense markers on Pacing | Small triangles on the Pacing chart showing where irony, suspense, mystery and revelation land. | Sidebar > Analyse > Pacing (appears automatically) |
 | Domino test | Pick a chapter and see what would stop making sense if it were cut, as a real count: dependent events, facts no longer learned, scenes losing their motivation, questions left unanswered, foreshadowing setups losing their payoff, and relationship changes that would no longer occur. | Story Analyst > Patterns > Domino test > Run check |
 | Reveal timing | How many chapters passed between the reader first suspecting a fact and it being confirmed. | Story Analyst > Patterns > Reveal timing |
 | Dialogue fingerprint comparison | Compares every character's speech statistics side by side. | Story Analyst > Patterns > Dialogue fingerprint comparison |
@@ -1538,13 +1570,13 @@ The Analyst never changes your manuscript, never invents characters (names it ca
 
 | Function | What it does | How to access it |
 |---|---|---|
-| Bring in your writing | Asks **What are you bringing?** (a Word or ODT document, a text or Markdown file, a Scrivener project, an Obsidian vault, an Aeon Timeline file, or nothing yet), says in one line what each will and will not bring, and opens the right importer. | Sidebar > Bring in your writing; the first-run guide; the link at the top of Import manuscript; or Ctrl+K, "Bring in your writing" |
-| Import manuscript | Brings in a whole .txt or .md manuscript (drop or paste) as a new project and builds a full Bible from it. A snapshot is taken first. Cancel can restore it. | Sidebar > Import manuscript; or Ctrl+K, "Import manuscript" |
+| Bring in your writing | Asks **What are you bringing?** (a Word or ODT document, a text or Markdown file, a Scrivener project, an Obsidian vault, an Aeon Timeline file, or nothing yet), says in one line what each will and will not bring, and opens the right importer. | Sidebar > Write > Bring in your writing; the first-run guide; the link at the top of Import manuscript; or Ctrl+K, "Bring in your writing" |
+| Import manuscript | Brings in a whole .txt or .md manuscript (drop or paste) as a new project and builds a full Bible from it. A snapshot is taken first. Cancel can restore it. | Sidebar > Write > Import manuscript; or Ctrl+K, "Import manuscript" |
 | Scan pages (OCR) | Reads photographed or scanned pages and adds the text to the import box for review. Needs Tesseract. | Import manuscript > Or scan pages > Choose page images |
-| Import from Aeon Timeline | Reads a native .aeon file directly, or a CSV export, into this book. | Sidebar > Import from other tools > Aeon Timeline |
-| Import from Obsidian | Scans a vault folder and merges characters, locations, relationships and threads into this book. | Sidebar > Import from other tools > Obsidian |
-| Import from Scrivener | Creates a new project from a .scriv folder, or links it so later changes sync in. | Sidebar > Import from other tools > Scrivener |
-| Word/ODT sync | Links a single .docx or .odt file, read-only, and keeps chapters in step with it. QuillWork never writes to your file. | Sidebar > Import from other tools > Word/ODT sync |
+| Import from Aeon Timeline | Reads a native .aeon file directly, or a CSV export, into this book. | Sidebar > Write > Import from other tools > Aeon Timeline |
+| Import from Obsidian | Scans a vault folder and merges characters, locations, relationships and threads into this book. | Sidebar > Write > Import from other tools > Obsidian |
+| Import from Scrivener | Creates a new project from a .scriv folder, or links it so later changes sync in. | Sidebar > Write > Import from other tools > Scrivener |
+| Word/ODT sync | Links a single .docx or .odt file, read-only, and keeps chapters in step with it. QuillWork never writes to your file. | Sidebar > Write > Import from other tools > Word/ODT sync |
 | Cancel with rollback | Every import can be cancelled, keeping or discarding what was found. | Each import panel > Cancel |
 
 ### A.8 Export and submission
@@ -1556,16 +1588,16 @@ The Analyst never changes your manuscript, never invents characters (names it ca
 | Include options | Chapter text, the Bible, and Author's notes. | Export panel |
 | Manuscript format | The Shunn-style agent and publisher submission layout for the full book, first 3 or 5 chapters, or a custom range. | Export panel > Manuscript |
 | Preserve rich text (Markdown) | Keeps bold, italic, underline, strikethrough, colour and images in Markdown export as embedded HTML. | Export panel > Markdown |
-| Synopsis generator | A one-page or two-page submission synopsis, ending included. | Sidebar > Submission > Synopsis generator |
-| Query letter | A standard-structure query letter using your Book setup contact details. | Sidebar > Submission > Query letter |
+| Synopsis generator | A one-page or two-page submission synopsis, ending included. | Sidebar > Publish > Submission > Synopsis generator |
+| Query letter | A standard-structure query letter using your Book setup contact details. | Sidebar > Publish > Submission > Query letter |
 
 ### A.9 Projects, history and backup
 
 | Function | What it does | How to access it |
 |---|---|---|
 | Projects | Create, open, refresh and delete novels. | Top bar > Projects; or Ctrl+K, "Projects" |
-| Version history | Automatic snapshots at start-up and every 10 minutes, named snapshots you keep, Compare with the current novel, and Restore (which first takes a safety snapshot). | Sidebar > Version history; or Ctrl+K, "Save a version (snapshot)" |
-| Cloud backup | Writes a dated backup into a folder you choose inside your own synced cloud drive, optionally on close, and optionally keeps a continuous copy. QuillWork uploads nothing itself. | Sidebar > Cloud backup; or Settings > More |
+| Version history | Automatic snapshots at start-up and every 10 minutes, named snapshots you keep, Compare with the current novel, and Restore (which first takes a safety snapshot). | Sidebar > Review > Version history; or Ctrl+K, "Save a version (snapshot)" |
+| Cloud backup | Writes a dated backup into a folder you choose inside your own synced cloud drive, optionally on close, and optionally keeps a continuous copy. QuillWork uploads nothing itself. | Sidebar > Review > Cloud backup; or Settings > More |
 | Data folder | Moves where projects, snapshots and preferences are stored. | Settings > Data & storage |
 
 ### A.10 Audiobook narration (optional)
@@ -1574,9 +1606,9 @@ The Analyst never changes your manuscript, never invents characters (names it ca
 |---|---|---|
 | Enable narration | Turns the whole audio feature on and reveals its settings. | Settings > Audiobook narration |
 | Chatterbox server | Address, folder, start and stop for the separate Chatterbox program that produces the voice. | Settings > Audiobook narration |
-| Narrate | Generates an MP3 per chapter for the full book, the first 3 chapters or your selection, then downloads a zip. Cancel keeps finished chapters. | Sidebar > Audio > Narrate (only when enabled) |
+| Narrate | Generates an MP3 per chapter for the full book, the first 3 chapters or your selection, then downloads a zip. Cancel keeps finished chapters. | Sidebar > Publish > Audio > Narrate (only when enabled) |
 | Per-character voices | Gives a character their own predefined or cloned voice for their dialogue. | Characters > open a character > Narration voice |
-| Narrator voice | The voice used for narration. | Sidebar > Bible > Book setup |
+| Narrator voice | The voice used for narration. | Sidebar > Plan > Bible > Book setup |
 
 ### A.11 Settings, AI connection and setup
 
@@ -1607,20 +1639,20 @@ These run in the background without you asking. Each row says when it runs and w
 | Function | What it does and when | How to see it or stop it |
 |---|---|---|
 | Chapter autosave | Saves the open chapter about 30 seconds after you stop typing, when there is something unsaved, and whenever you switch chapters. | The **saved / saving / unsaved** label beside the project name. Switch it off with the **Autosave** switch in the top bar; **Ctrl+S** always saves. |
-| Automatic snapshots | Snapshots the whole novel when you open it and about every 10 minutes while you work. An unchanged novel is not snapshotted twice. The newest 40 automatic snapshots are kept; named versions are kept forever. | Sidebar > Version history. No switch. |
+| Automatic snapshots | Snapshots the whole novel when you open it and about every 10 minutes while you work. An unchanged novel is not snapshotted twice. The newest 40 automatic snapshots are kept; named versions are kept forever. | Sidebar > Review > Version history. No switch. |
 | Background Bible extraction | Once a chapter has grown by about 150 words, and at most once every three minutes per chapter, quietly adds new characters, locations, relationships, facts and plot threads. Anything that would change an existing entry waits in Bible updates for your say-so. | Settings > AI model & connection > Auto-extract Bible info as I write (on by default). Stop AI lights up while a pass runs. |
-| Search re-indexing | Re-embeds a chapter after a save only if its text changed, and re-embeds Bible entries, research items and scenes when they change, so search and Chat stay accurate. | Sidebar > Search index shows the status. No switch. |
-| Linked Scrivener sync | Checks a linked Scrivener project every 30 seconds and merges in only the chapters that changed. A chapter removed in Scrivener is flagged, never deleted, and a chapter you edited in QuillWork is never overwritten by an older copy. | Sidebar > Import from other tools > Scrivener. **Unlink** stops it. |
-| Linked Word or ODT sync | Checks a linked .docx or .odt file every 30 seconds and merges in changed chapters, matched by title. A chapter you edited in QuillWork is never overwritten by an older copy; one changed in both places keeps your version and is named in the sync message. | Sidebar > Import from other tools > Word/ODT sync. **Unlink** stops it. |
-| Continuous backup | If ticked, writes a complete, consistent copy of the project database into your backup folder every 15 minutes by default. It is checked once a minute and acts only when your interval has passed. | Sidebar > Cloud backup (or Settings > More): **Keep a continuous copy**, **Check every (minutes)**. The last copy time is shown there. |
-| Backup on close | If ticked and a backup folder is set, writes a fresh backup when you leave using the **Close** button. | Sidebar > Cloud backup: **Also back up automatically when I close QuillWork**. |
+| Search re-indexing | Re-embeds a chapter after a save only if its text changed, and re-embeds Bible entries, research items and scenes when they change, so search and Chat stay accurate. | Sidebar > Analyse > Search index shows the status. No switch. |
+| Linked Scrivener sync | Checks a linked Scrivener project every 30 seconds and merges in only the chapters that changed. A chapter removed in Scrivener is flagged, never deleted, and a chapter you edited in QuillWork is never overwritten by an older copy. | Sidebar > Write > Import from other tools > Scrivener. **Unlink** stops it. |
+| Linked Word or ODT sync | Checks a linked .docx or .odt file every 30 seconds and merges in changed chapters, matched by title. A chapter you edited in QuillWork is never overwritten by an older copy; one changed in both places keeps your version and is named in the sync message. | Sidebar > Write > Import from other tools > Word/ODT sync. **Unlink** stops it. |
+| Continuous backup | If ticked, writes a complete, consistent copy of the project database into your backup folder every 15 minutes by default. It is checked once a minute and acts only when your interval has passed. | Sidebar > Review > Cloud backup (or Settings > More): **Keep a continuous copy**, **Check every (minutes)**. The last copy time is shown there. |
+| Backup on close | If ticked and a backup folder is set, writes a fresh backup when you leave using the **Close** button. | Sidebar > Review > Cloud backup: **Also back up automatically when I close QuillWork**. |
 | Storage upgrade | Moves an older project to the newer storage format when you open it, taking a backup first. | Automatic, once per project. |
 | Draft protection | Asks before anything replaces the editor while an unapproved Scene beat draft is showing. | Automatic. |
 | Continuity check on approve | After you approve a Scene beat draft, runs a continuity check on just that passage and shows a small card that never blocks you. | Settings > AI model & connection > Check continuity when I approve a Scene beat draft (off by default). |
 | AI busy watch | Every few seconds the app asks whether any AI work is running, so **Stop AI** greys out when nothing is and stays lit when something is, even a background pass. | **Stop AI**, bottom of the sidebar. |
-| Interrupted analysis notice | If a Story Analyst run or health report was cut off (for example the app closed), opening the Story Analyst shows a banner offering to resume it. Resume works after a restart, and finished steps are not redone. | Sidebar > Story Analyst. |
+| Interrupted analysis notice | If a Story Analyst run or health report was cut off (for example the app closed), opening the Story Analyst shows a banner offering to resume it. Resume works after a restart, and finished steps are not redone. | Sidebar > Analyse > Story Analyst. |
 | Local model set-up check | While the optional Quick AI setup waits for Ollama to start, it re-checks every few seconds and moves on by itself when Ollama answers. | Shown in the set-up window only. |
-| Search index catch-up | When QuillWork starts, after you restore a version, and after a linked-file sync, it removes search text for chapters that no longer exist and re-indexes any chapter whose text has changed. It does nothing for a project whose search index was never built. | Sidebar > Search index shows the status. No switch. |
+| Search index catch-up | When QuillWork starts, after you restore a version, and after a linked-file sync, it removes search text for chapters that no longer exist and re-indexes any chapter whose text has changed. It does nothing for a project whose search index was never built. | Sidebar > Analyse > Search index shows the status. No switch. |
 | Narration server check | At start-up, and only if audiobook narration is switched on, QuillWork checks whether the narration engine is ready. | Settings > Audiobook narration. |
 | Update check | A few seconds after start-up, asks the QuillWork server whether a newer version exists and shows a notice if so. Sends only your licence key, version and platform. A failed check is silent. Nothing is downloaded until you choose Update now. | Settings > Updates > Check for updates when QuillWork starts (on by default). |
 | Diagnostic capture | Only if you turn it on: keeps a rolling copy of QuillWork's own recent messages on your computer. Never sent anywhere. | Settings > Updates > Keep diagnostic information (off by default). |
