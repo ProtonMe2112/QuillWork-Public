@@ -763,6 +763,8 @@ Click **Manage topics** to add a topic (choosing its parent, or "Top level"), re
 
 **Embedding an image in a chapter.** The image button in the editor's bottom toolbar (see [5.2](#52-the-editor)) inserts a Research Workspace image straight into your chapter text, and it goes into Word, PDF and EPUB exports.
 
+**Linking research to your manuscript.** A research item's own window has a **Linked to** section: link it to a chapter, a scene, a character, a location, a plot thread or a world entry, with your own note and a provenance tier on the link itself (independent of the item's own tier or any of its facts, since the same source can be a verified reference for one link and only your own interpretation for another). Each of those six also shows the connection back: a character, location, plot thread and world entry's own window has a **Related research** list; a chapter has a **Related research** button next to Scenes; a scene's own edit form shows it beneath its other fields. Clicking a related research item opens it directly. Creating a brand new character, location, plot thread, world entry or chapter while you have a research item open offers to link the two immediately, so the connection is recorded from whichever side you happen to be working in.
+
 Requires your project to be on QuillWork's current storage format (any project opened in a recent version already is). A project still on the older format shows a message asking you to reopen it first.
 
 ### 6.13 Bible updates
