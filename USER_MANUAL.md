@@ -230,7 +230,7 @@ Hover over any button, control, or checkbox for a moment and a tooltip explains 
 
 **Themes.** The sun/moon button in the top bar cycles between three themes — **Light** (warm paper), **Sepia** (dimmer and softer, easier on the eyes for long sessions), and **Dark** (warm near-black). Your choice is remembered between sessions. You can also set a specific theme from the command palette (search "theme").
 
-**Interface language.** Settings has a Language section for the interface itself, separate from your novel's own language (World & style, section 6.6), which is what the AI writes in, not what QuillWork's own buttons, menus, tooltips and help text are shown in. QuillWork's own interface is available in English (UK and US), French, German and Spanish: choose one, confirm the **Change language?** window, and the page reloads in that language. About thirty languages are listed; for one without a translation yet, QuillWork keeps showing English and remembers your choice, then switches over on its own when that translation ships. This manual is always shown in English.
+**Interface language.** Settings has a Language section for the interface itself, separate from your novel's own language (World & style, section 6.6), which is what the AI writes in, not what QuillWork's own buttons, menus, tooltips and help text are shown in. QuillWork's own interface is available in English (UK and US), French, German and Spanish, and that covers everything QuillWork itself says: buttons and menus, confirmations, progress messages, error messages, the Story Analyst's own findings, and version-history labels. (What the AI writes isn't part of the interface: a scene, a chapter summary, the details it extracts into your bible, and its explanations in Story Analyst results and suggestions all follow your novel's language.) Choose one, confirm the **Change language?** window, and the page reloads in that language. About thirty languages are listed; for one without a translation yet, QuillWork keeps showing English and remembers your choice, then switches over on its own when that translation ships. This manual is always shown in English.
 
 **Stop AI.** The button at the bottom of the sidebar force-stops any AI generation running right now, in any panel — even a scene beat, chat reply, or import you don't have open in front of you.
 
@@ -574,7 +574,14 @@ Each chapter shows its live word count in the header. The sidebar chapter list a
 
 A microphone button next to the quick-append box (and next to the Scene beat brief, see [Section 8.1](#81-scene-beat)) lets you dictate instead of typing. Click it to start listening, click again (or just stop talking for a while) to stop — your words appear in the box as you speak, ready to review before you commit them with **Append** or **Generate**.
 
-This runs entirely in your browser using its built-in speech recognition — nothing is sent to QuillWork's AI model or any server, and no setup is required. It works best in Chrome or Edge; the button is hidden automatically in browsers that don't support it (notably Firefox). It listens in whatever language the novel's own **Language** setting is set to (see [Section 6.6](#66-world--style)), not necessarily your browser's language — set that first if you're dictating in something other than English.
+Dictation uses your browser's own speech recognition. No setup is needed, and nothing goes to QuillWork's AI model. It works best in Chrome or Edge; the button is hidden automatically in browsers that don't support it (notably Firefox). It listens in whatever language the novel's own **Language** setting is set to (see [Section 6.6](#66-world--style)), not necessarily your browser's language, so set that first if you're dictating in something other than English.
+
+**Where your voice goes.** Most browsers don't recognise speech on your computer. They send the recording to the browser maker's speech service over the internet and get the words back as text: **Chrome sends it to Google, Edge to Microsoft, Safari to Apple**. Where a browser can recognise speech on your computer, QuillWork uses that, and nothing leaves your machine. Otherwise, the first time you press the microphone QuillWork tells you which company will receive what you say and asks whether to go ahead:
+
+- **Use dictation** carries on. QuillWork remembers your answer for that company and doesn't ask again.
+- **Don't dictate** stops, and nothing is recorded or sent. Type instead, or use a browser that can recognise speech on the device itself.
+
+Only what you say into the microphone is sent, and only while it's listening: never your manuscript, your notes or anything else. QuillWork has no say in what the speech service does with the recording. **Settings → Voice dictation** shows which services you've agreed to; **Ask me again** clears your answers so QuillWork asks before the next dictation.
 
 ### 5.6 Chapter notes
 
@@ -706,7 +713,7 @@ Click **Add event** to log one, or click any existing entry to edit or **Delete*
 
 **World & style** holds:
 - **Novel title** and **Genre**
-- **Language** — the language your novel is written in (defaults to English). When set to anything else, every AI tool is told to write its prose, summaries, synopses, and bible details in that language rather than English — so working in French, Spanish, German, and so on just works. See **Writing in another language** below.
+- **Language**: the language your novel is written in (defaults to English). When set to anything else, every AI tool is told to write its prose, summaries, synopses, and bible details in that language rather than English, so working in French, Spanish, German, and so on just works. The same goes for everything the AI writes for you to read: the explanations in Story Analyst results, continuity checks and suggestions, and the details it extracts on import, with quotes from your text kept exactly as you wrote them. Results worked out before you changed the language stay as they were until that part of the book changes. See **Writing in another language** below.
 - **Synopsis**
 - **Author style notes** — POV, tense, voice, tone (e.g. *"Close third person, past tense, dry wit, short chapters"*). This is injected into every prose-writing call.
 - **Prose sample** *(optional)* — paste a paragraph or two of your own actual writing here, rather than describing it. The AI is told to match its rhythm and voice, not to copy its content — useful alongside (or instead of) Author style notes when a real example says more than a description can.
@@ -1249,6 +1256,8 @@ Saving a project snapshots the current bible (chapters, characters, everything) 
 
 ## 11. Exporting Your Novel
 
+**The words QuillWork adds to your book follow your novel's language.** Chapter headings ("Chapter 1:"), Contents, the copyright line, About the Author, the Novel Bible's headings and the like come out in your novel's own language (World & style, see [Section 6.6](#66-world--style)) when QuillWork has that language: English, French, German or Spanish. For any other language they follow QuillWork's interface language, so you can rename them in the exported file if you need to. An EPUB also declares the novel's language, so e-readers hyphenate and read it aloud correctly.
+
 ### 11.1 Book setup — front and back matter
 
 **Book setup** in the sidebar. Fill these in once and every export format (Word, PDF, EPUB) automatically builds a proper title page, copyright page, dedication, epigraph, table of contents, and back matter around your chapters — no manual formatting needed. Leave any field blank and that page is simply skipped.
@@ -1463,13 +1472,17 @@ Click **Beta report** — the gold button in the top bar, next to Projects (also
 
 Every report is read by hand, not auto-approved. A genuine one earns you a permanent license key back by email — no more 28-day expiry.
 
-### 15.2 Activating a license key
+### 15.2 Activating a licence key
 
-Got a new key — from a beta report, or after a purchase once QuillWork leaves beta? Open **Settings → License**, paste it into the **License key** field, and click **Activate**. You don't need to wait for your current key to expire first; a new key takes over immediately.
+Got a new key, from a beta report or after a purchase once QuillWork leaves beta? Open **Settings → Licence**, paste it into the **Licence key** field, and click **Activate**. You don't need to wait for your current key to expire first; a new key takes over immediately.
+
+**Keys are signed by QuillWork's server.** A key starts with `CHR2.` and carries a digital signature (Ed25519) that only QuillWork's licence server can make; your copy of QuillWork checks it on your computer with the server's public key, so a key can't be forged. Keys issued before October 2026 start with `CHR1.` and keep working: the first time a version that reads the new keys checks for updates, the server swaps your old key for a signed one with the same name and the same expiry date, and QuillWork saves it for you. You don't need to do anything, and nothing about your key's dates or your activation changes.
 
 Activating a **new** key needs an internet connection for a moment. QuillWork checks it against the license server so a key can't be shared round. A key belongs to one install at a time, but you can move it: if you reinstall, copy QuillWork to another computer or replace your computer, activate the same key again and it moves across. A key can move to a new install up to three times; after that, email and it will be sorted out. Going back to an install the key has already lived on is free. Every normal launch after activation checks the key's own signature on your computer, with no server involved.
 
-Settings → License also shows your current license status at a glance — whether it's valid, who it's registered to, and when it expires (or, for a permanent key, that it doesn't).
+Settings → Licence also shows your current licence status at a glance: whether it's valid, who it's registered to, and when it expires (or, for a permanent key, that it doesn't).
+
+**Your key only ever matters for updates.** If your key expires, or you've never entered one, everything you've written stays exactly where it is and QuillWork keeps working as normal: you can open, write, edit, export and back up your projects, and use every feature. The only thing a valid key unlocks is getting a new version of QuillWork (Update now, Try it first, or Download installer); checking whether an update exists, and rolling back to the version you had, never need one. If an update needs a key, QuillWork tells you so and points you here.
 
 ### 15.3 Updating QuillWork
 
@@ -1479,12 +1492,12 @@ QuillWork can tell you when a newer version is out and install it for you, so a 
 
 **At start-up.** A few seconds after QuillWork opens, it makes the same check quietly. If a newer version exists, a small notice appears in the bottom-right corner with **See what's new**, which opens the same window. If the check cannot run (you are offline, or the server is down) you are not told: only an update is ever announced. The **x** on the notice hides it until the next start. Untick **Check for updates when QuillWork starts** to stop the automatic check; the button still works whenever you press it.
 
-**What is sent.** The check sends your licence key, the version you are running and your platform (Windows, Linux or Mac). It sends nothing else: none of your writing, projects, Bible or settings. Nothing is downloaded until you choose **Update now**. An expired key cannot check for updates, and a copy running from a development checkout never checks.
+**What is sent.** The check sends your licence key, the version you are running and your platform (Windows, Linux or Mac). It sends nothing else: none of your writing, projects, Bible or settings. Nothing is downloaded until you choose **Update now**. The check works whatever state your key is in: if it has expired, or you haven't entered one, you are still told a newer version exists, and the window says a valid key is needed to get it, with a button to open **Settings → Licence**. A copy running from a development checkout never checks.
 
 **What Update now does.**
 
 1. Saves the chapter you have open, so nothing typed is lost.
-2. Downloads the new version's files from QuillWork's server, which fetches them from the release. A checksum confirms the download arrived intact, and QuillWork refuses anything incomplete or the wrong version. If the new version needs extra Python packages, they are installed at this point, before anything is replaced.
+2. Downloads the new version's files from QuillWork's server, which fetches them from the release. A checksum confirms the download arrived intact, and a digital signature (Ed25519) confirms it was built and signed by QuillWork: anything unsigned, signed by anyone else, incomplete or the wrong version is thrown away before anything changes. If the new version needs extra Python packages, they are installed at this point, before anything is replaced.
 3. Closes QuillWork and updates the program files. It compares each file with the one already installed and replaces only the files that differ, keeping a copy of every file it replaces. A file the new version no longer uses is removed, and a copy is kept of that too. Your projects, Bible, settings and licence are separate from the program files and are never touched.
 4. Starts the new version and waits for it to answer. This window then reloads by itself.
 
@@ -1569,7 +1582,7 @@ Three things apply to almost everything below:
 | Connection strip | Shows which backend (LM Studio, Ollama, or Cloud AI) you're on and whether it is connected, has no model loaded, or is unreachable. | Sidebar footer. Click it to open Settings |
 | Close | Asks about any unapproved AI draft, saves, backs up if you enabled backup-on-close, and shuts QuillWork down cleanly. | Top bar > Close (red) |
 | Tooltips | Hover any control for about a third of a second for an explanation. | Hover anywhere |
-| Interface language | Shows QuillWork's own buttons and menus in English (UK or US), French, German or Spanish. Separate from your novel's language. | Settings > Language |
+| Interface language | Shows everything QuillWork itself says in English (UK or US), French, German or Spanish: buttons, menus, messages, progress, Story Analyst findings and errors. Separate from your novel's language. | Settings > Language |
 
 ### A.2 Writing: chapters, editor and scenes
 
@@ -1594,7 +1607,7 @@ Three things apply to almost everything below:
 | Markdown source view | Shows the raw text QuillWork has stored for the chapter. | Bottom toolbar > code icon |
 | Paste | Pastes as plain text. Markdown headings and pipe tables become real headings and tables. | **Ctrl+V** in the editor |
 | Append box | Adds what you type as a new paragraph at the end of the chapter. | Bottom bar. **Enter** appends, **Shift+Enter** starts a new line |
-| Voice dictation | Speech-to-text into the append box or the Scene beat box, using your browser's speech recognition. Works best in Chrome or Edge. | Bottom bar > microphone buttons |
+| Voice dictation | Speech-to-text into the append box or the Scene beat box, using your browser's speech recognition. Works best in Chrome or Edge. Most browsers send the recording to their maker's speech service (Google for Chrome, Microsoft for Edge, Apple for Safari): QuillWork says so and asks first. | Bottom bar > microphone buttons |
 
 Bold, italic, underline, strikethrough, colour and embedded images are kept natively in Word, PDF and EPUB exports, and in Markdown export when **Preserve rich text formatting** is ticked. A submission manuscript keeps emphasis but stays plain black with no images. They are removed before anything reaches the AI, the search index, plain-text export or audiobook narration, so your colour-coded notes never leak into a prompt.
 
@@ -1785,7 +1798,8 @@ The Analyst never changes your manuscript, never invents characters (names it ca
 
 | Function | What it does | How to access it |
 |---|---|---|
-| Licence | Shows your licence status and activates or replaces a key. Needs the internet when a key is first activated on an install; a key can move to a new install up to three times. | Settings > License |
+| Licence | Shows your licence status and activates or replaces a key. Needs the internet when a key is first activated on an install; a key can move to a new install up to three times. A key is only needed to get updates; an expired or missing key never stops you using QuillWork or your work. | Settings > Licence |
+| Voice dictation | Shows which speech services you've agreed to dictation sending your voice to; **Ask me again** clears them, so QuillWork asks before the next dictation. | Settings > Voice dictation |
 | Check for updates | Asks the QuillWork server whether a newer version exists, then offers Update now or Decline. Sends only your licence key, version and platform. | Settings > Updates > Check for updates |
 | Update now | Saves your open chapter, takes a safety snapshot, downloads and verifies the new version, replaces the program files (never your projects), restarts, and puts the old version back if the new one does not start. | The update window, after Check for updates or the start-up notice |
 | Roll back to previous version | Shown only when a previous version's files are still kept. Saves your open chapter, takes a safety snapshot, restores the previous version's files, and restarts on it. | Settings > Updates > Roll back to vX.X.X |
@@ -1804,7 +1818,7 @@ The Analyst never changes your manuscript, never invents characters (names it ca
 | Continuity check depth | The depth for Add written chapter's own continuity stage, which has no dialog of its own to ask in: Smart (a dedicated classifier, most accurate, needs a one-time ~1.7GB download), Thorough, Quick, or Off to skip that stage entirely, see [8.4](#84-continuity-check). Thorough by default. The standalone Continuity check tool is unaffected either way and always offers its own Quick/Thorough choice on a project large enough for it to matter. | Settings > AI model & connection > Continuity check depth |
 | Count reworked AI dialogue in voice fingerprints | By default a character's voice fingerprint counts only dialogue you wrote yourself. Turn this on to also count lines you started from an AI draft and then edited (lines approved unchanged are never counted). | Settings > AI model & connection > Count dialogue I reworked from AI drafts in voice fingerprints |
 | OCR path | Where Tesseract is, if it isn't on your PATH. | Settings > OCR import |
-| Interface language | English (UK or US), French, German or Spanish. | Settings > Language |
+| Interface language | English (UK or US), French, German or Spanish, for everything QuillWork itself says. | Settings > Language |
 
 ### A.12 Things that happen automatically
 
@@ -1829,7 +1843,7 @@ These run in the background without you asking. Each row says when it runs and w
 | Local model set-up check | While the optional Quick AI setup waits for Ollama to start, it re-checks every few seconds and moves on by itself when Ollama answers. | Shown in the set-up window only. |
 | Search index catch-up | When QuillWork starts, after you restore a version, and after a linked-file sync, it removes search text for chapters that no longer exist and re-indexes any chapter whose text has changed. It does nothing for a project whose search index was never built. | Sidebar > Analyse > Search index shows the status. No switch. |
 | Narration server check | At start-up, and only if audiobook narration is switched on, QuillWork checks whether the narration engine is ready. | Settings > Audiobook narration. |
-| Update check | A few seconds after start-up, asks the QuillWork server whether a newer version exists and shows a notice if so. Sends only your licence key, version and platform. A failed check is silent. Nothing is downloaded until you choose Update now. | Settings > Updates > Check for updates when QuillWork starts (on by default). |
+| Update check | A few seconds after start-up, asks the QuillWork server whether a newer version exists and shows a notice if so, whatever state your licence key is in. Sends only your licence key, version and platform. A failed check is silent. Nothing is downloaded until you choose Update now, and only a download signed by QuillWork is installed. | Settings > Updates > Check for updates when QuillWork starts (on by default). |
 | Diagnostic capture | Only if you turn it on: keeps a rolling copy of QuillWork's own recent messages on your computer. Never sent anywhere. | Settings > Updates > Keep diagnostic information (off by default). |
 
 ### A.13 Keyboard shortcuts and gestures
