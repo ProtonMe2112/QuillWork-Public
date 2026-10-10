@@ -15,7 +15,7 @@ Nothing you write ever leaves your computer unless you choose to connect a cloud
 3. [The QuillWork Window](#3-the-quillwork-window)
 4. [Connecting an AI Model](#4-connecting-an-ai-model)
 5. [Writing](#5-writing) — includes [Scenes](#57-scenes) (splitting a chapter, dialogue attribution)
-6. [The Novel Bible](#6-the-novel-bible) — includes [Story Overview](#60-story-overview), [Character voice, Dialogue fingerprint & Observed voice](#61-characters), [Possible duplicate characters](#61-characters), [Worldbuilding consistency checker](#67-worldbuilding), [Narrator beliefs](#68-narrator-beliefs), [Knowledge tracker](#69-knowledge-tracker), [Foreshadowing (Chekhov's Gun)](#610-foreshadowing-chekhovs-gun), [Facts & constants](#611-facts--constants), the [Research Workspace](#612-research-workspace), [Bible updates](#613-bible-updates), [Author notes](#614-author-notes), and [Location maps](#615-location-maps)
+6. [The Novel Bible](#6-the-novel-bible) — includes [Story Overview](#60-story-overview), [Character voice, Dialogue fingerprint & Observed voice](#61-characters), [Possible duplicate characters](#61-characters), [Worldbuilding consistency checker](#67-worldbuilding), [Narrator beliefs](#68-narrator-beliefs), [Knowledge tracker](#69-knowledge-tracker), [Foreshadowing (Chekhov's Gun)](#610-foreshadowing-chekhovs-gun), [Facts & constants](#611-facts--constants), the [Research Workspace](#612-research-workspace), [Bible updates](#613-bible-updates), [Author notes](#614-author-notes), [Location maps](#615-location-maps), and [Copying cards between projects](#616-copying-cards-between-projects)
 7. [Series — Sharing a World Across Multiple Books](#7-series--sharing-a-world-across-multiple-books)
 8. [AI Writing Tools](#8-ai-writing-tools) — includes [Synopsis generator](#88-synopsis-generator), [Query letter](#89-query-letter), [Chat](#810-chat), [Pacing](#811-pacing), and [Story Analyst](#812-story-analyst) (events and causality, the health report, What if…, and the Patterns tab)
 9. [Search Index — Working with Very Long Novels](#9-search-index--working-with-very-long-novels)
@@ -65,7 +65,7 @@ Nothing is imported from the chooser itself; you confirm in the importer it open
 
 The rest of this section describes the plain text import in detail.
 
-1. Click **Projects → New project** first (or start from a blank project) — Import works on the current project.
+1. Nothing to set up first: **Import manuscript always creates a new project of its own**, and the project you have open is not changed. (To add chapters to a project you already have, use **Add written chapter** or [Word/ODT sync](#215-word-and-odt-sync) instead.)
 2. Click **Import manuscript** in the sidebar (or choose **A text or Markdown file** in the chooser above).
 3. Either:
    - **Drag and drop** a `.txt` or `.md` file onto the drop zone, or click it to browse, **or**
@@ -98,7 +98,7 @@ The rest of this section describes the plain text import in detail.
 - If your AI model doesn't look reachable when you start an import, QuillWork says so and asks whether to continue anyway — a large manuscript can take long enough that the model going down partway through (a crash, an idle unload, a restart) would otherwise only surface chapter by chapter, well into the run.
 - A manuscript that states its own chapters and also lists them in a contents page is cut at the real chapter headings only — the contents listing itself is recognised and never counted as chapters of their own.
 - A manuscript wrapped in a Project Gutenberg license (the common case for a public-domain classic) has that boilerplate recognised and stripped by its own literal start/end markers before chapters are cut, so it never lands glued onto your first or last chapter.
-- **Cancel import** stops it at any point and asks whether to keep what was found so far or discard it and restore the automatic snapshot taken just before the import began.
+- **Cancel import** stops it at any point. If it had already started building the new project, you choose whether to keep that partial project, with what was found so far, or delete it and go back to the project you had open. The project you had open is never changed either way.
 - The AI-extracted bible is a **starting point**, not gospel — review Characters/Locations/Relationships/Plot threads afterward and correct anything it got wrong or missed. This matters because every AI writing call afterward trusts the bible as fact.
 - If you only have a single chapter to add to an *existing* QuillWork project (rather than a whole manuscript), use **Add written chapter** instead (see [Section 8.7](#87-add-written-chapter)) — it's the same idea but scoped to one chapter and merges into your existing bible rather than replacing it.
 
@@ -151,7 +151,7 @@ If your novel is written in [Scrivener](https://www.literatureandlatte.com/scriv
 1. Open **Scrivener** and click to browse for your project's **`.scriv` folder** (the folder itself, not a file inside it) — this opens your normal Windows folder picker.
 2. QuillWork scans the project and shows how many chapters it found, the total word count, whether it found any research/notes content, and how many documents are marked **Exclude from Compile** in Scrivener (drafts, cut scenes, notes to self — if you have any, a checkbox appears letting you skip them, checked by default). Nothing is imported yet at this point.
 3. Click **Import as new project**. Each top-level item in your Draft becomes one chapter — if it's a folder containing multiple scenes, they're stitched together in order; if it's a single document, that's the chapter as-is. Chapter titles from Scrivener are kept as-is (QuillWork only suggests a title itself if a chapter genuinely has none). If a document has no written prose yet, its synopsis card is used as a stand-in so outline-stage content isn't silently dropped. Everything else in the project — a Research folder, or any other folder you keep alongside the Draft (Characters, Places, Front Matter, whatever you've called it) — isn't turned into chapters, but does feed the same character/location/relationship/plot-thread extraction the rest of the manuscript gets, along with every document's own notes and any comments or footnotes you've attached to it via the inspector panel. Scrivener's own Trash folder is never read. Both the newer and older on-disk Scrivener project layouts are supported.
-4. When it finishes, you're switched straight into the new project, same as any other import -- unless a chunk failed (most often a timeout), in which case the panel stays open with a **Retry failed chunks** button reporting exactly how many, so you can try just those again before moving on.
+4. As soon as the chapters have been read you're switched into the new project and can watch it fill in; the project you had open is not changed. **Cancel** keeps or deletes the partial new project. If a chunk fails (most often a timeout), the panel stays open with a **Retry failed chunks** button reporting exactly how many, so you can try just those again before moving on.
 
 Footnotes, Word-style comments, and Scrivener's own inline footnotes and coloured Inline Annotations are all stripped out of your prose entirely before extraction — none of them are meant to be part of your finished manuscript, so none of them get fed to the AI as if they were.
 
@@ -886,6 +886,19 @@ An interactive map you import an image into, then place your Locations on as pin
 **Export.** The **Export** button downloads the current map — image, title, pins and compass — as a PNG at the map's own full resolution, for use as front-matter or reference art outside QuillWork. This is a direct image render, separate from the manuscript export in [Section 11](#11-exporting-your-novel), which handles chapter text, not standalone images.
 
 **Travel-pace consistency.** Once at least one map is calibrated (above), the [Story Analyst](#812-story-analyst)'s Health Dashboard automatically compares a journey between two locations against how many in-story days your own chapters say pass between a scene in one and a scene in the next. If you've saved a route for that pair of locations (see **Transport mode and travel time**, above), it uses the real travel time for the transport modes you actually set — "at these speeds, this takes about 2 days 6 hours, but only 1 day passes in the story." Without a saved route, it falls back to a generous flat estimate (130 km/day, a fast horse relay or coastal ship) so you still get a check even before you've measured a specific journey. Nothing to turn on; it runs as part of the same health check pass as everything else there.
+
+### 6.16 Copying cards between projects
+
+Bring characters, places or worldbuilding from one of your projects into another without typing them again. The **Characters**, **Locations** and **Worldbuilding** panels each have two buttons:
+
+- **Copy from another project** brings cards into the project you have open.
+- **Copy to another project** sends cards from the project you have open to one of your others, without opening it.
+
+In the window that opens, choose the other project and the kind of card, tick the cards you want (or **Select all**), and click **Copy**. A message says how many were copied.
+
+- **A copy, not a link.** Each project then has its own card, and changing one later doesn't change the other. If the books share one world and should stay in step, link them as a series instead ([Section 7](#7-series--sharing-a-world-across-multiple-books)).
+- **Nothing is overwritten.** A card whose name the other project already has (its own or a series card) is skipped, and the message names it.
+- **Only what belongs to the person or place travels.** The description, role, personality, history and the rest are copied. What belongs to the old book stays behind: the chapter the character first appeared in, and the Observed voice and Character psychology readings, which come from that book's text. Run them again in the new project once it has some writing.
 
 ---
 
@@ -1652,6 +1665,7 @@ Bold, italic, underline, strikethrough, colour and embedded images are kept nati
 | Place compass | Drops a compass rose; right-click it to rotate or remove. | Map window > Place compass |
 | Export map | Downloads the map (image, title, pins, compass) as a PNG. | Map window > Export |
 | Worldbuilding | Structured rules: magic systems, factions, religions, languages. "Check consistency (AI)" flags prose that breaks an established rule. | Sidebar > Plan/Bible > Worldbuilding |
+| Copy from / to another project | Copies character, location or worldbuilding cards between your projects, in either direction. A copy, not a link; a card the other project already has is skipped. | Characters, Locations or Worldbuilding panel |
 | Facts & constants | Numbers you assert (prices, distances, dates), fed into every AI call unless you exclude them, with an optional consistency scan. | Sidebar > Plan/Bible > Facts & constants |
 | Relationships | Pairs of characters with a dynamic, a 0 to 10 tension and kinds. List view, or a visual web where line weight shows tension. "How does X know Y?" finds the shortest connecting chain. | Sidebar > Plan/Bible > Relationships |
 | Plot threads | Threads with status and introduction chapter. The Visual view is a bar per thread across the chapters it appears in (needs a Story Analyst run). | Sidebar > Plan/Bible > Plot threads |
@@ -1755,7 +1769,7 @@ The Analyst never changes your manuscript, never invents characters (names it ca
 | Function | What it does | How to access it |
 |---|---|---|
 | Bring in your writing | Asks **What are you bringing?** (a Word or ODT document, a text or Markdown file, a Scrivener project, an Obsidian vault, an Aeon Timeline file, or nothing yet), says in one line what each will and will not bring, and opens the right importer. | Sidebar > Write > Bring in your writing; the first-run guide; the link at the top of Import manuscript; or Ctrl+K, "Bring in your writing" |
-| Import manuscript | Brings in a whole .txt or .md manuscript (drop or paste) as a new project and builds a full Bible from it. A snapshot is taken first. Cancel can restore it. | Sidebar > Write > Import manuscript; or Ctrl+K, "Import manuscript" |
+| Import manuscript | Brings in a whole .txt or .md manuscript (drop or paste) as a new project and builds a full Bible from it. The project you have open is not changed. Cancel keeps or deletes the partial new project. | Sidebar > Write > Import manuscript; or Ctrl+K, "Import manuscript" |
 | Scan pages (OCR) | Reads photographed or scanned pages and adds the text to the import box for review. Needs Tesseract. | Import manuscript > Or scan pages > Choose page images |
 | Import from Aeon Timeline | Reads a native .aeon file directly, or a CSV export, into this book. | Sidebar > Write > Import from other tools > Aeon Timeline |
 | Import from Obsidian | Scans a vault folder and merges characters, locations, relationships and threads into this book. | Sidebar > Write > Import from other tools > Obsidian |
