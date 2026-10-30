@@ -1,10 +1,10 @@
-# QuillWork
+# QuillWork Beta
 
 **QuillWork doesn't just help you write your novel. It understands the story you're writing.**
 
 A private, local novel-writing workspace. Everything feeds one structured model of your story (characters, relationships, causality, who knows what and when, world rules, open promises), and every tool reads from it. It runs on your own computer, against an AI model you choose, and your writing never leaves your machine.
 
-100% local, no subscription, no account.
+Beta is 100% local, no subscription, no account.
 
 [**Get beta access, free**](https://quillwork.agile-growth.net/beta) &nbsp;|&nbsp; [**Watch the demo video**](https://quillwork.agile-growth.net/demo) &nbsp;|&nbsp; [**User manual**](USER_MANUAL.md) &nbsp;|&nbsp; [Website](https://quillwork.agile-growth.net/)
 
