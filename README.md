@@ -119,7 +119,7 @@ QuillWork is in a free public beta: a small, steadily growing group of writers r
 
 1. **Apply.** Fill in the [beta application form](https://quillwork.agile-growth.net/beta) with your name and email. There is no credit card and no account.
 2. **Check your inbox.** Your licence key and a download link arrive by email straight away.
-3. **Install.** On Windows, click the link to download the installer and double-click it. On Linux, run the small downloader from the email. Either way, QuillWork sets itself up, downloading what it needs the first time.
+3. **Install.** On Windows, click the link to download the installer and double-click it. On Linux, run the small downloader from the email. On a Mac (beta), open Terminal and paste the one line from the email. Every way, QuillWork sets itself up, downloading what it needs the first time.
 4. **Activate your key.** Paste it into QuillWork when asked. Activating needs an internet connection for a moment; after that QuillWork runs offline.
 5. **Connect a model.** Install LM Studio or Ollama and load a model, or use the optional Quick AI setup, which reads your hardware and recommends one.
 6. **Send a beta report.** Your key runs for 28 days. Send back a short beta report before it expires (the **Beta report** button in QuillWork opens the form) and you get a permanent free licence, no strings attached.
@@ -134,7 +134,7 @@ A key belongs to one install at a time. If you reinstall or move to a new comput
 
 | | |
 |---|---|
-| **Operating system** | Windows 10 or 11 (64-bit), or Linux (x86_64 or ARM64). A Mac version is being built. |
+| **Operating system** | Windows 10 or 11 (64-bit), Linux (x86_64 or ARM64), or macOS 13 Ventura or later (beta; Apple chip or Intel). |
 | **Memory** | 16 GB RAM recommended, 8 GB minimum. |
 | **Graphics card** | 12 GB of VRAM recommended. Smaller setups work too; generation is just slower as more of the model runs from system memory. |
 | **AI software** | [LM Studio](https://lmstudio.ai) or [Ollama](https://ollama.com), running a model. QuillWork does not include or run a model itself. |
@@ -159,7 +159,7 @@ Fiction with any mature content needs an uncensored or abliterated model: a stan
 **What QuillWork sends to QuillWork's server.** Four things, and nothing else:
 
 - **Key activation.** When you activate a key, QuillWork sends the key and a random install ID (not tied to your hardware) so a key can be limited to one install at a time. This happens when a key is first activated on an install; after that QuillWork checks your key on your own computer.
-- **Update check.** A few seconds after QuillWork starts, and whenever you press **Check for updates**, QuillWork sends your licence key, the version you are running and your platform (Windows or Linux). None of your writing, projects, Bible or settings is included. You can switch the start-up check off in Settings; nothing is downloaded until you choose **Update now**.
+- **Update check.** A few seconds after QuillWork starts, and whenever you press **Check for updates**, QuillWork sends your licence key, the version you are running and your platform (Windows, Linux or Mac). None of your writing, projects, Bible or settings is included. You can switch the start-up check off in Settings; nothing is downloaded until you choose **Update now**.
 - **Models for the reading of people.** The first time the reading of people runs on a computer, it downloads its models from QuillWork's models release through a link that only a licence key gets. To get that link QuillWork sends your licence key and the name of each model file, nothing of your writing. If a model cannot be fetched, the reading goes on without it and tries again next time.
 - **Beta licence agreement.** The first time you open a new beta version, QuillWork asks you to accept the QuillWork Beta Licence Agreement. By accepting, you agree to share the email address you registered for the beta test, the beta version you are using and your computer's operating system with Agile-Growth.Net. QuillWork sends your licence key, the version and your OS when you accept (or later, if you were offline), and the server reads your registered email address from the key. This information is removed from the beta tester log when your beta licence expires. If you hold a lifetime licence, which does not expire, it is removed 12 months after you last accepted the agreement, that is, a year after you stop installing new beta versions. You can ask for it to be removed sooner at any time by emailing mindweaver@agile-growth.net.
 
@@ -198,7 +198,7 @@ Yes, as long as the model you load can. A standard safety-tuned model will refus
 Yes. Import a manuscript, or bring your work from Scrivener, Obsidian, Aeon Timeline, Word or ODT. QuillWork splits chapters and extracts characters, locations, relationships, facts and plot threads for you to review. An English book can be read for its people on your own computer, without the AI (a beta in 0.90); books in other languages keep the classic import for now.
 
 **Does it work on a Mac?**
-Not yet. A Mac version is being built. It will install through Terminal, with step-by-step guidance, and Mac owners who would like to try it first can say so in a beta report. Today QuillWork runs on Windows 10 and 11 and on Linux.
+Yes, as a beta from v0.90.2: macOS 13 Ventura or later, with an Apple chip or Intel. It doesn't come through the App Store, so it installs from Terminal: your beta email has one line to paste, and the [user manual](USER_MANUAL.md#installing-on-a-mac-beta) shows each step. It opens in your browser at http://localhost:5050. On an Apple chip the AI model uses the Mac's own memory; on an Intel Mac it runs on the processor only, so it is slow.
 
 **My antivirus or ad blocker gets in the way. What can I do?**
 Update to the latest version. Since 0.89.1 QuillWork starts with ad blockers and privacy extensions such as uBlock Origin switched on, and its Windows launcher is no longer flagged by Bitdefender and similar programs. Since 0.90 the Windows installer downloads Miniconda even when your antivirus or ad blocker checks secure connections itself, and if it still cannot, it tells you how to get round it.

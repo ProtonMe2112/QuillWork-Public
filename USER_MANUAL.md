@@ -34,7 +34,7 @@ Nothing you write ever leaves your computer unless you choose to connect a cloud
 
 **First launch:** the very first time you open QuillWork, a short **setup wizard** walks you through connecting your AI model and creating your first project: the steps below, guided. Its second step also offers **Quick AI setup**, which can choose and download an AI model for you (see [Section 4](#quick-ai-setup-optional)). Its last step offers to download the **checking models** (3.8 GB) in the background while you work, so the Smart continuity check and Un-AI text are ready the first time you use them (see [Checking models](#checking-models)). You can reopen it any time from the command palette (**Ctrl+K → "Getting started"**). The installer, or QuillWork itself the first time it starts, also asks one question that only you can answer: whether to keep the Story Analyst up to date as you write, which uses your model in the background (see [Keeping it up to date as you write](#812-story-analyst)). If you'd rather set things up yourself, the manual steps are:
 
-1. **Launch QuillWork.** The installer adds a **QuillWork** icon (to your Desktop and Start Menu on Windows, to your Desktop and applications menu on Linux); use either. Without it, double-click `QuillWork.vbs` (silent, recommended) or `Start QuillWork.bat` (shows a console window: useful if something goes wrong) on Windows, or `QuillWork.desktop` on Linux, in the folder you installed to. Your browser opens automatically to `http://localhost:5000`.
+1. **Launch QuillWork.** The installer adds a **QuillWork** icon (to your Desktop and Start Menu on Windows, to your Desktop and applications menu on Linux, to your Applications on a Mac, where Spotlight finds it: press Cmd+Space and type QuillWork); use either. Without it, double-click `QuillWork.vbs` (silent, recommended) or `Start QuillWork.bat` (shows a console window: useful if something goes wrong) on Windows, `QuillWork.desktop` on Linux, or `QuillWork.command` on a Mac, in the folder you installed to. Your browser opens automatically to `http://localhost:5000`, or `http://localhost:5050` on a Mac, where macOS's AirPlay Receiver uses 5000. On a Mac QuillWork runs in a Terminal window: it keeps running while that window is open, and closing it stops QuillWork. See [Installing on a Mac](#installing-on-a-mac-beta).
 2. **Start LM Studio or Ollama** and load a model, if you haven't already (see [Section 4](#4-connecting-an-ai-model)). Never used either? You don't need to learn them first: in the setup wizard's second step choose **Let QuillWork set this up for me**. It opens Ollama's official download page, waits until Ollama is running, then downloads a model that fits your computer, and you can start writing while it downloads (see [Quick AI setup](#quick-ai-setup-optional)).
 3. Click **Projects** in the top bar → **New project**. Give it a title and pick a **project type**: Novel (the default), Short story, Non-fiction, Historical fiction, Memoir or biography, Screenplay, Stage play, or Series planning. A type is a preconfigured starting point, not a separate mode: Non-fiction calls Chapters Sections; Screenplay and Stage play write a script, not prose, and call Chapters Scenes ([Section 5.8](#58-screenplays-and-stage-plays)); Historical fiction surfaces the Research Workspace's source tiers ([6.12](#612-research-workspace)) from the start; Memoir or biography does the same, with starter prompts for a real life (the people go in Characters; mark each source as verified, your interpretation, or unresolved, so memory and the record stay apart); Series planning starts a new series ([Section 7](#7-series-sharing-a-world-across-multiple-books)) alongside this book so its characters, locations and worldbuilding can be shared across every book in it. Every other type writes ordinary prose chapters. Add a genre too if you like (optional, and just informs the AI's tone: it doesn't restrict anything). If your genre matches one QuillWork recognizes (Fantasy, Science Fiction, Mystery/Thriller, Romance, Horror, Historical, Literary, Young Adult), World & style starts with a short list of genre-relevant prompts already in world-building notes, edit or delete them freely, they're just a starting scaffold, never fake content: a Short story, Non-fiction, Memoir or biography, Screenplay or Stage play project starts with its own equivalent scaffold instead, whether or not the genre matches anything.
 4. Click **World & style** in the sidebar and fill in whatever you already know: synopsis, author style notes (POV, tense, voice), world-building notes. You don't need to fill in everything: the bible grows as you write.
@@ -43,6 +43,17 @@ Nothing you write ever leaves your computer unless you choose to connect a cloud
 7. As you introduce characters and locations, add them via **Characters** and **Locations** in the sidebar so the AI has them as reference for consistency in everything it writes afterward.
 
 That's the whole loop: write (or generate a draft), the bible informs every AI call, QuillWork autosaves as you go.
+
+#### Installing on a Mac (beta)
+
+The Mac version is new (beta). It needs macOS 13 Ventura or later, on a Mac with an Apple chip or an Intel processor. It installs from Terminal, because it isn't sold through the App Store and isn't signed by Apple: run that way, macOS doesn't show its "unidentified developer" warning.
+
+- **Testers:** your beta email has one line to paste into Terminal (press **Cmd+Space**, type **Terminal**, press Return). It downloads QuillWork into `QuillWork-download` in your home folder and starts the installer.
+- **From the release files:** put `QuillWork-Setup-mac.sh` and `quillwork_app.zip` in the same folder, open Terminal, type `bash ` (with a space), drag `QuillWork-Setup-mac.sh` into the Terminal window and press Return.
+
+The installer downloads Python (Miniconda) for QuillWork, sets up its packages, and puts QuillWork in your own Applications folder, so Spotlight finds it (press **Cmd+Space** and type QuillWork), and Launchpad too on macOS 15 and earlier. It takes 5 to 10 minutes and leaves about 1.4 GB (measured on a Mac with an Apple chip); have 3 GB free for what it downloads on the way, and the installer warns you if there is less. The reading of people downloads its own models (about 7 GB) the first time it reads a book. It asks whether to put an icon on your Desktop too; macOS may then ask whether Terminal may use your Desktop folder: choose **Allow**. QuillWork goes in `~/QuillWork` unless you choose another folder. To remove it, run `bash QuillWork-Uninstall.sh` in that folder (`bash ~/QuillWork/QuillWork-Uninstall.sh` if you kept the usual one).
+
+For the AI model, install **Ollama** (ollama.com), or **LM Studio** (lmstudio.ai) on a Mac with an Apple chip. On an Apple chip the model uses the Mac's own memory, and Quick AI setup suggests models that fit it. On an Intel Mac, models run on the processor only, so they are slow.
 
 ---
 
@@ -185,6 +196,8 @@ If your only copy of a manuscript is on paper (a scanned notebook, printed draft
 **Windows:** the QuillWork installer sets this up for you automatically: it bundles Tesseract and configures it during setup if it doesn't find one already on your machine (an existing install is always left alone and used instead). There's nothing to install separately; OCR import just works out of the box.
 
 **Linux:** the installer offers to install Tesseract via `apt` during setup if it isn't already present (on Debian/Ubuntu-based distros); on other distros it prints the right command for your package manager instead. Either way, install it, then set its path in **Settings → OCR import** if it isn't on your system PATH (click **Check** there to confirm QuillWork can reach it).
+
+**Mac:** the installer offers to install Tesseract with Homebrew if Homebrew is on your Mac. Without Homebrew, install Homebrew (brew.sh) and then run `brew install tesseract` in Terminal.
 
 #### 2.1.5 Word and ODT sync
 
@@ -352,7 +365,7 @@ Model choice matters a lot for prose quality: this is a local generation tool, s
 
 ### Your hardware, and whether the models will fit
 
-Under the Model dropdown, **Your hardware** shows your graphics card, its VRAM and your system RAM. RAM is read from your computer. VRAM is read from NVIDIA's own tools, so it is detected automatically only on NVIDIA cards; if yours isn't detected, a **GB VRAM** box appears so you can enter it yourself. Once a main model is chosen, two bars show **GPU VRAM** and **System RAM** as used over total gigabytes: your main model fills VRAM first, a separate fast model takes what is left, and anything that doesn't fit spills into the RAM bar (the legend marks Main model and Fast model). The bars update as you change either dropdown, work even when your AI backend is offline, and are guidance only: they never stop you choosing a model.
+Under the Model dropdown, **Your hardware** shows your graphics card, its VRAM and your system RAM. RAM is read from your computer. VRAM is read from NVIDIA's own tools, so it is detected automatically only on NVIDIA cards; if yours isn't detected, a **GB VRAM** box appears so you can enter it yourself. On a Mac with an Apple chip, the graphics share the Mac's memory, and macOS lets them use about two thirds of it (three quarters on a Mac with more than 36 GB), so QuillWork shows that share as the VRAM. On an Intel Mac, enter it yourself. Once a main model is chosen, two bars show **GPU VRAM** and **System RAM** as used over total gigabytes: your main model fills VRAM first, a separate fast model takes what is left, and anything that doesn't fit spills into the RAM bar (the legend marks Main model and Fast model). The bars update as you change either dropdown, work even when your AI backend is offline, and are guidance only: they never stop you choosing a model.
 
 ### Testing your model on this computer
 
@@ -1394,7 +1407,7 @@ Scene beat, Refine, and Chat go further: once your Bible is big enough they scop
 - **New project**: starts a blank bible with a title, a project type (Section 1, step 3), and a genre.
 - **Project list**: shows every saved novel with its chapter count and total word count. Click one to load it as the active book (the current one is saved to its project file first if it has unsaved project-level changes). When a book loads with no chapter open, the chapter you last had open in it on this computer opens again.
 - Click the bin icon on a project to delete it permanently, after a confirmation. Deleting the project you have open resets the editor.
-- Projects are stored as individual files in a `projects` folder inside your QuillWork data folder, so you can back them up, copy them, or move them between installs directly. **Settings > Data & storage** shows where that folder is (by default `%LOCALAPPDATA%\QuillWork` on Windows and `~/.local/share/quillwork` on Linux) and can move it anywhere.
+- Projects are stored as individual files in a `projects` folder inside your QuillWork data folder, so you can back them up, copy them, or move them between installs directly. **Settings > Data & storage** shows where that folder is (by default `%LOCALAPPDATA%\QuillWork` on Windows, `~/.local/share/quillwork` on Linux and `~/Library/Application Support/QuillWork` on a Mac) and can move it anywhere.
 
 Saving a project snapshots the current bible (chapters, characters, everything) under a project ID. If the book is linked to a Series, only the *local* data is stored in the project file: shared series data lives in its own series file and isn't duplicated.
 
@@ -1642,7 +1655,7 @@ Everything on this screen is read straight from state QuillWork already keeps; o
 
 ### 13.4 Your files without QuillWork
 
-Everything QuillWork keeps is in ordinary files on your computer, in your QuillWork data folder (**Settings > Data & storage** shows where; by default `%LOCALAPPDATA%\QuillWork` on Windows and `~/.local/share/quillwork` on Linux). If you ever stop using QuillWork, your work is still yours and still readable:
+Everything QuillWork keeps is in ordinary files on your computer, in your QuillWork data folder (**Settings > Data & storage** shows where; by default `%LOCALAPPDATA%\QuillWork` on Windows, `~/.local/share/quillwork` on Linux and `~/Library/Application Support/QuillWork` on a Mac). If you ever stop using QuillWork, your work is still yours and still readable:
 
 | Where | What it is | How to read it without QuillWork |
 |---|---|---|
@@ -1672,6 +1685,10 @@ Everything QuillWork keeps is in ordinary files on your computer, in your QuillW
 **Search index shows "No embedding model detected."** See [Section 9.1](#91-setting-up-an-embedding-model): either click the automatic setup button, or load an embedding model manually in LM Studio/Ollama.
 
 **QuillWork won't start / installer fails.** Check `data/quillwork_error.log` in the install folder for the Flask server's own error output: this is the most reliable source of truth for startup failures.
+
+**On a Mac, "QuillWork is already running" but the page doesn't load.** Another QuillWork is still running in the background: quit the `python3.12` process in Activity Monitor and start QuillWork again. QuillWork uses port 5050 on a Mac, not 5000 (macOS's AirPlay Receiver uses 5000), so open `http://localhost:5050`.
+
+**On a Mac, the installer stops with an error.** Copy everything in the Terminal window and send it with a beta report. If it says macOS is too old, QuillWork needs macOS 13 Ventura or later (System Settings → General → Software Update).
 
 **Your antivirus blocks QuillWork.vbs (Windows).** Some antivirus programs (Bitdefender, for one, reporting `Amsi.Edge`, with a Windows Script Host error 800A802D) blocked the silent launcher of version 0.89.0-beta and earlier, usually as QuillWork closed. The launcher is safe: it starts QuillWork's server and opens your browser. Installers after 0.89.0-beta write a launcher that no longer does the things these programs watch for. Until you reinstall, start QuillWork with `Start QuillWork.bat` in the folder you installed to, which does not use the script host: it opens a console window, which you can minimise. There is no need to turn your antivirus off or add an exception.
 
