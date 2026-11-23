@@ -1,10 +1,12 @@
-# QuillWork
+# QuillWork Beta
 
 **QuillWork doesn't just help you write your novel. It understands the story you're writing.**
 
 A private, local novel-writing workspace. Everything feeds one structured model of your story (characters, relationships, causality, who knows what and when, world rules, open promises), and every tool reads from it. It runs on your own computer, against an AI model you choose, and your writing never leaves your machine.
 
-100% local, no subscription, no account.
+Beta is 100% local, no subscription, no account.
+
+**New in v0.90.0-beta (23 November 2026):** QuillWork can read an English book for its people, as a beta, on your own computer and without the AI model: who each person is under all their names, their sex, gender, age, religion, occupation, appearance and relationships, each with the passage it came from, for you to review. Also new: a review package for your editor and a way to accept or reject each change in the Word file they send back, Test my model, backups you can check and restore, a Memoir or biography project type, a series bible export, spaced paragraphs in the editor, and AI model suggestions that all allow commercial use.
 
 [**Get beta access, free**](https://quillwork.agile-growth.net/beta) &nbsp;|&nbsp; [**Watch the demo video**](https://quillwork.agile-growth.net/demo) &nbsp;|&nbsp; [**User manual**](USER_MANUAL.md) &nbsp;|&nbsp; [Website](https://quillwork.agile-growth.net/)
 
@@ -45,15 +47,17 @@ A private, local novel-writing workspace. Everything feeds one structured model 
 
 ### The practical side
 
-- **Manuscript import.** Drop in an existing draft, or bring it from Scrivener, Obsidian, Aeon Timeline, Word or ODT. QuillWork splits chapters and extracts characters, locations, relationships, facts and plot threads automatically.
-- **Runs on your own model.** LM Studio or Ollama, whatever you already have loaded. Not sure which model? The optional Quick AI setup picks and downloads one to match your hardware. Uncensored and creative-writing models are fully supported.
-- **No wiki to maintain.** As you write, the model updates the Bible itself: new characters, relationships and plot threads are tracked automatically. Anything that would change an existing entry waits for your say-so.
-- **A research wall that reads.** Pin maps, faces, PDFs, notes and spreadsheets into nested topics. QuillWork reads them, and continuity check can name the reference a passage contradicts.
-- **Export when done.** Word, PDF, EPUB, Markdown or industry-standard manuscript format, with your bold, italic, colour and embedded images intact.
-- **Undo at the scale of a draft.** Automatic version snapshots you can compare and restore, plus backup to your own cloud folder. Nothing depends on a server we run.
+- **Manuscript import.** Drop in an existing draft, or bring it from Scrivener, Obsidian, Aeon Timeline, Word or ODT. QuillWork splits chapters, reads the language the book is written in, and extracts characters, locations, relationships, facts and plot threads automatically.
+- **Your book read for its people (beta, English books).** QuillWork reads the whole manuscript on your computer, without the AI, for every person in it, joining all the names each one goes by, and for their sex, gender, age, religion, occupation, appearance and relationships, each with the passage and chapter it was read from. Nothing is added until you review it, and after you edit, each character shows whether their details are still up to date. Measured on 18 published novels that researchers annotated by hand, it names people more accurately than BookNLP, a widely used research tool (96% of names right, against 83%), and finds 99% of the main characters (182 of 184). The first reading downloads its models once, about 7 GB. It is on for new installs; updated installs switch it on in **Settings, AI model & connection**. The step that works out who knows what is switched off in this release until it is right often enough.
+- **Runs on your own model.** LM Studio or Ollama, whatever you already have loaded. Not sure which model? The optional Quick AI setup picks and downloads one to match your hardware, and every model it suggests allows commercial use, with its licence shown beside it. **Test my model** checks your model on a short passage in about a minute. Uncensored and creative-writing models are fully supported.
+- **No wiki to maintain.** As you write, the model updates the Bible itself: new characters, relationships and plot threads are tracked automatically (for a book read for its people, characters and relationships come from that reading instead). Anything that would change an existing entry waits for your say-so.
+- **A research wall that reads.** Pin maps, faces, PDFs, notes and spreadsheets into nested topics. QuillWork reads them, and continuity check can name the reference a passage contradicts. A Memoir or biography project type starts with source tiers ready, to keep memory and the record apart.
+- **Export when done.** Word, PDF, EPUB, Markdown or industry-standard manuscript format, with your bold, italic, colour and embedded images intact. Also a series bible (Markdown) and the Story Analyst's findings (JSON).
+- **Working with an editor.** **Make review package** saves one .zip with the manuscript in Word, the Bible, the Story Analyst's latest report and your questions for the reviewer, never your private notes. When the edited Word file comes back, accept or reject each change to your words, one at a time.
+- **Undo at the scale of a draft.** Automatic version snapshots you can compare and restore, plus backup to your own cloud folder. **Check my backups** says whether each backup can be restored, and **Restore as a new project** brings one back without replacing anything. Nothing depends on a server we run.
 - **Updates you control.** QuillWork can tell you when a newer version is out and what changed. You choose Update now or Decline, and nothing is downloaded until you say so.
 
-Three themes (light, sepia and dark), and the interface is available in English (UK and US), French, German and Spanish.
+Three themes (light, sepia and dark), paragraphs indented like a printed book or spaced, and the interface is available in English (UK and US), French, German and Spanish.
 
 ---
 
@@ -130,11 +134,11 @@ A key belongs to one install at a time. If you reinstall or move to a new comput
 
 | | |
 |---|---|
-| **Operating system** | Windows 10 or 11 (64-bit), or Linux (x86_64 or ARM64). A Mac version is not available yet. |
+| **Operating system** | Windows 10 or 11 (64-bit), or Linux (x86_64 or ARM64). A Mac version is being built. |
 | **Memory** | 16 GB RAM recommended, 8 GB minimum. |
 | **Graphics card** | 12 GB of VRAM recommended. Smaller setups work too; generation is just slower as more of the model runs from system memory. |
 | **AI software** | [LM Studio](https://lmstudio.ai) or [Ollama](https://ollama.com), running a model. QuillWork does not include or run a model itself. |
-| **Internet** | Needed for the first-time install, for activating a key, and for the update check (which you can switch off). Otherwise QuillWork runs offline. |
+| **Internet** | Needed for the first-time install, for activating a key, for the update check (which you can switch off), and once for the reading of people, whose first run downloads its models (about 7 GB). Otherwise QuillWork runs offline. |
 
 ### What different hardware runs comfortably
 
@@ -150,12 +154,14 @@ Fiction with any mature content needs an uncensored or abliterated model: a stan
 
 ## Privacy statement
 
-**Your writing stays on your computer.** QuillWork does not receive, see or store your manuscript, your Bible or anything you write with it. It talks only to an AI model that you run yourself, through LM Studio or Ollama, at an address you set (normally this same computer). A cloud AI option is planned but is not built yet, so in this beta nothing goes to a hosted service. If you choose to point QuillWork at a model server on another computer, such as running the Fast model elsewhere, your text goes to that server, so use one you trust.
+**Your writing stays on your computer.** QuillWork does not receive, see or store your manuscript, your Bible or anything you write with it. By default it talks only to an AI model that you run yourself, through LM Studio or Ollama, at an address you set (normally this same computer). If you choose to point QuillWork at a model server on another computer, such as running the Fast model elsewhere, your text goes to that server, so use one you trust. **Cloud AI** is an optional third choice for a paid hosted AI provider: it is off until you pick it, and QuillWork shows a warning first naming what it sends (the chapter or scene text the feature you are using needs, the Bible entries it includes as context, and what you type into Chat), all through your own account with that provider. **Voice dictation** uses your browser's own speech recognition, which in most browsers sends the recording to the browser maker's speech service, so QuillWork asks first.
 
-**What QuillWork sends to QuillWork's server.** Two things, and nothing else:
+**What QuillWork sends to QuillWork's server.** Four things, and nothing else:
 
 - **Key activation.** When you activate a key, QuillWork sends the key and a random install ID (not tied to your hardware) so a key can be limited to one install at a time. This happens when a key is first activated on an install; after that QuillWork checks your key on your own computer.
 - **Update check.** A few seconds after QuillWork starts, and whenever you press **Check for updates**, QuillWork sends your licence key, the version you are running and your platform (Windows or Linux). None of your writing, projects, Bible or settings is included. You can switch the start-up check off in Settings; nothing is downloaded until you choose **Update now**.
+- **Models for the reading of people.** The first time the reading of people runs on a computer, it downloads its models from QuillWork's models release through a link that only a licence key gets. To get that link QuillWork sends your licence key and the name of each model file, nothing of your writing. If a model cannot be fetched, the reading goes on without it and tries again next time.
+- **Beta licence agreement.** The first time you open a new beta version, QuillWork asks you to accept the QuillWork Beta Licence Agreement. By accepting, you agree to share the email address you registered for the beta test, the beta version you are using and your computer's operating system with Agile-Growth.Net. QuillWork sends your licence key, the version and your OS when you accept (or later, if you were offline), and the server reads your registered email address from the key. This information is removed from the beta tester log when your beta licence expires. If you hold a lifetime licence, which does not expire, it is removed 12 months after you last accepted the agreement, that is, a year after you stop installing new beta versions. You can ask for it to be removed sooner at any time by emailing mindweaver@agile-growth.net.
 
 There is no analytics and no telemetry. **Diagnostic capture** is off by default; if you turn it on, QuillWork keeps a short rolling copy of its own messages on your computer so you can save a diagnostic bundle to attach to a bug report. QuillWork never sends it anywhere, and the bundle never includes your chapters or Bible.
 
@@ -171,16 +177,16 @@ To ask what is held about you, or to have it deleted, email [marc@agile-growth.n
 No account and no subscription. Your licence key is valid for 28 days as a beta tester. Send back a short beta report before it expires and you get a permanent free licence, no catch.
 
 **What happens after the 28 days if I don't send a report?**
-Your key simply expires and QuillWork stops opening until you renew it. Sending a beta report before then is what unlocks a permanent free licence. It does not have to be long, just real feedback on what worked and what did not.
+Your key expires and QuillWork opens in a restricted mode: your writing stays yours and on your computer, and you can still export and back it up, but nothing else works until you add a valid key. Sending a beta report before then is what unlocks a permanent free licence. It does not have to be long, just real feedback on what worked and what did not.
 
 **Does my writing ever leave my computer?**
-No. QuillWork talks only to an AI model you run yourself, through the OpenAI-compatible APIs of LM Studio or Ollama, on your own machine. A cloud AI option is planned but is not built yet, so in this beta nothing you write is sent to a hosted service. See the [privacy statement](#privacy-statement) for the little that QuillWork does send to its own server.
+Not unless you choose it. By default QuillWork talks only to an AI model you run yourself, through the OpenAI-compatible APIs of LM Studio or Ollama, on your own machine. The optional Cloud AI choice sends text to a hosted provider you pick, and says what it sends before it takes effect. See the [privacy statement](#privacy-statement) for the little that QuillWork does send to its own server.
 
 **LM Studio or Ollama, which one do I need?**
 Either. QuillWork supports both, and defaults to the standard port for whichever you pick (1234 for LM Studio, 11434 for Ollama). Use whichever you already have. If you have neither, the optional Quick AI setup opens Ollama's official download page and then downloads a model that fits your hardware for you.
 
 **What if I don't know which model to pick?**
-Let Quick AI setup choose: it reads your GPU memory and RAM and recommends a writing model, a vision model and, where there is room, a fast one, then downloads them through Ollama. To pick yourself, start with a well-regarded uncensored model of around 8B to 14B parameters in a Q4 or Q5 quantisation. It is the most forgiving starting point across most hardware, and you can try something bigger or smaller once you see how it runs.
+Let Quick AI setup choose: it reads your GPU memory and RAM and recommends a writing model, a vision model and, where there is room, a fast one, then downloads them through Ollama. Every model it suggests allows commercial use, so you can sell what you write with its help, and each one's licence is shown beside it. **Test my model**, in **Settings, AI model & connection**, then tells you in about a minute whether your model's answers are usable. To pick yourself, start with a well-regarded uncensored model of around 8B to 14B parameters in a Q4 or Q5 quantisation. It is the most forgiving starting point across most hardware, and you can try something bigger or smaller once you see how it runs.
 
 **Do I need a powerful GPU?**
 It helps, but it is not required. 16 GB RAM and 12 GB VRAM is the recommended baseline for a good experience. Smaller setups still work; generation is just slower as more of the model spills into system memory.
@@ -189,10 +195,13 @@ It helps, but it is not required. 16 GB RAM and 12 GB VRAM is the recommended ba
 Yes, as long as the model you load can. A standard safety-tuned model will refuse or soften those scenes regardless of prompting, so mature fiction needs an uncensored or abliterated model. QuillWork itself does not filter anything.
 
 **Can I bring in a book I have already started?**
-Yes. Import a manuscript, or bring your work from Scrivener, Obsidian, Aeon Timeline, Word or ODT. QuillWork splits chapters and extracts characters, locations, relationships, facts and plot threads for you to review.
+Yes. Import a manuscript, or bring your work from Scrivener, Obsidian, Aeon Timeline, Word or ODT. QuillWork splits chapters and extracts characters, locations, relationships, facts and plot threads for you to review. An English book can be read for its people on your own computer, without the AI (a beta in 0.90); books in other languages keep the classic import for now.
 
 **Does it work on a Mac?**
-Not yet. QuillWork runs on Windows 10 and 11 and on Linux.
+Not yet. A Mac version is being built. It will install through Terminal, with step-by-step guidance, and Mac owners who would like to try it first can say so in a beta report. Today QuillWork runs on Windows 10 and 11 and on Linux.
+
+**My antivirus or ad blocker gets in the way. What can I do?**
+Update to the latest version. Since 0.89.1 QuillWork starts with ad blockers and privacy extensions such as uBlock Origin switched on, and its Windows launcher is no longer flagged by Bitdefender and similar programs. Since 0.90 the Windows installer downloads Miniconda even when your antivirus or ad blocker checks secure connections itself, and if it still cannot, it tells you how to get round it.
 
 **Can I work with other people on the same book?**
 No. QuillWork is a single-writer, local tool. Real-time collaboration needs accounts and syncing, which would go against keeping your writing private and needing no account.
