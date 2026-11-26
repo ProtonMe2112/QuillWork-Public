@@ -1521,7 +1521,7 @@ EPUB, Manuscript format and book trim sizes are for novels and aren't offered fo
 
 ### 11.6 Working with an editor
 
-**Sending the book: the review package.** At the foot of **Export**, **Make review package** saves one .zip for an editor or beta reader:
+**Sending the book: the review package.** Near the foot of **Export**, **Make review package** saves one .zip for an editor or beta reader:
 
 - the manuscript, in Word;
 - the bible: characters, places, world, plot threads and relationships;
@@ -1531,6 +1531,16 @@ EPUB, Manuscript format and book trim sizes are for novels and aren't offered fo
 - a README saying what each file is.
 
 Your private notes are never in the package.
+
+**The Story Analyst's findings as a file.** Below the review package, under **Story Analyst findings (JSON)**, **Download the findings** saves one .json file named "*your title* - Story Analyst.json", for checking the analyst's reading outside QuillWork or in another tool. It holds what the Story Analyst has read so far:
+
+- the events in story order (by chapter, by scene, then by where each event's quote stands in the scene), each with its chapter, story day, who did it and the quote it was read from;
+- the causal links between events, each as cause and effect, with the reason it was drawn and its quote;
+- the facts, with the chapter that establishes each and its quote;
+- the questions still open or only partly answered;
+- each scene's viewpoint character, place, story day and summary (characters and places by name).
+
+Each quote carries what the evidence check found for it. Like every Story Analyst finding, the file says which parts are the AI's reading. Making the file asks the AI nothing: it is what the Story Analyst has already stored. A book the analyst has not read yet gives a file with empty lists.
 
 **What comes back: the editor's returned version.** When the editor sends back an edited Word file, choose it under **Your editor's returned version**, also in **Export**. QuillWork compares it with your chapters as they are now and lists each change to the words: the old words struck through, the new ones marked, with the text around them.
 
@@ -2038,7 +2048,8 @@ The Analyst never changes your manuscript, never invents characters (names it ca
 | Preserve rich text (Markdown) | Keeps bold, italic, underline, strikethrough, colour and images in Markdown export as embedded HTML. | Export panel > Markdown |
 | Synopsis generator | A one-page or two-page submission synopsis, ending included. | Sidebar > Publish > Submission > Synopsis generator |
 | Query letter | A standard-structure query letter using your Book setup contact details. | Sidebar > Publish > Submission > Query letter |
-| Review package | One .zip for an editor or beta reader: the manuscript in Word, the bible, the Story Analyst's latest report (each finding with its quotes and whether it is calculated or the AI's reading), the series bible for a book in a series, your questions for the reviewer and a README. Your private notes are left out. See [Working with an editor](#116-working-with-an-editor). | Export panel > Make review package (at the foot of the panel) |
+| Review package | One .zip for an editor or beta reader: the manuscript in Word, the bible, the Story Analyst's latest report (each finding with its quotes and whether it is calculated or the AI's reading), the series bible for a book in a series, your questions for the reviewer and a README. Your private notes are left out. See [Working with an editor](#116-working-with-an-editor). | Export panel > Make review package (near the foot of the panel) |
+| Story Analyst findings (JSON) | One .json file of what the Story Analyst has read: events in story order with their quotes, the causal links and why each was drawn, the facts, the open questions, and each scene's viewpoint, place and story day. Says which parts are the AI's reading. See [Working with an editor](#116-working-with-an-editor). | Export panel > Download the findings (below the review package) |
 | Your editor's returned version | Choose the edited Word file your editor sent back: each change to your words is listed with the text around it, the old words struck through and the new ones marked. Accept, Accept all for a chapter, or Reject (remembered, with Undo). Nothing changes until you accept, and the first change you accept keeps a version in Version history. | Export panel > Your editor's returned version > Choose the returned Word file |
 
 ### A.9 Projects, history and backup
